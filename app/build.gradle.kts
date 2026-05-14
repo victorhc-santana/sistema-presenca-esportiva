@@ -34,8 +34,9 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.App"
+    mainClass = "br.edu.fateczl.presencaesportiva.view.Main"
 }
+
 
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
