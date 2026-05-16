@@ -4,7 +4,7 @@ import javafx.application.Application;
 
 public class Main {
     public static void main(String[] args) {
-        Application.launch(TelaLogin.class, args);
+        Application.launch(TelaAluno.class, args);
     }
 }
 

@@ -15,7 +15,7 @@ public class TelaLogin extends Application {
     @Override
     public void start(Stage login) {
         //inicia painel de grid para a tela de login e poisiciona no centro
-        GridPane gridPane = new GridPane(2, 3);
+        GridPane gridPane = new GridPane(10, 10);
         gridPane.setAlignment(Pos.CENTER);
         //configura a cena e o título da janela
         login.setTitle("Tela de Login");
