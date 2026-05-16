@@ -12,4 +12,4 @@ Seguimos a convenção de [Conventional Commits](https://www.conventionalcommits
 - `chore`: Atualização de tarefas, build, etc.
 
 ### Formato
-<tipo>(<escopo>): <descrição curta>
+tipo(escopo): descrição curta
