@@ -1,20 +1,23 @@
 package br.edu.fateczl.presencaesportiva.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Aluno {
-    private int id;
-    private String nome;
-    private int cpf;
-    private String email;
-    private String telefone;
-    private Date dataNascimento;
-    private String endereco;
-    private String modalidade;
+    private int id = 0;
+    private String nome = "";
+    private String cpf = "";
+    private String email = "";
+    private String telefone = "";
+    private LocalDate dataNascimento = LocalDate.now();
+    private String endereco = "";
+    private String modalidade = "";
 
-    
-    public Aluno(int id, String nome, int cpf, String email, String telefone,
-         Date dataNascimento, String endereco, String modalidade) {
+    public Aluno() {
+        super();
+    }
+
+    public Aluno(int id, String nome, String cpf, String email, String telefone,
+         LocalDate dataNascimento, String endereco, String modalidade) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -46,12 +49,12 @@ public class Aluno {
     }
 
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -76,12 +79,12 @@ public class Aluno {
     }
 
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

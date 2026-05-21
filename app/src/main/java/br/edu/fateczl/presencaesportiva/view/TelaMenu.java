@@ -17,11 +17,31 @@ public class TelaMenu extends Application{
         menu.setTitle("Tela de Menu");
         menu.setScene(new Scene(gridPane, 400, 300));
         //cria os componentes da tela de menu e os adiciona ao painel de grid
+        Button btnAluno = new Button("Cadastrar Aluno");
+        Button btnTurma = new Button("Cadastrar turma");
         Button btnPresenca = new Button("Registrar Presença");
-        Button btnRelatorio = new Button("Gerar Relatório");
+        Button btnSair = new Button("Sair");
 
-        gridPane.add(btnPresenca, 0, 0);
-        gridPane.add(btnRelatorio, 1, 0);
+        btnAluno.setOnAction(e -> {
+            TelaAluno telaAluno = new TelaAluno();
+            telaAluno.start(new Stage());
+        });
+        btnTurma.setOnAction(e -> {
+            TelaTurma telaTurma = new TelaTurma();
+            telaTurma.start(new Stage());
+        });
+        btnPresenca.setOnAction(e -> {
+            TelaPresenca telaPresenca = new TelaPresenca();
+            telaPresenca.start(new Stage());
+        });
+        btnSair.setOnAction(e -> {
+            menu.close();
+        });
+
+        gridPane.add(btnAluno, 0, 0);
+        gridPane.add(btnTurma, 1, 0);
+        gridPane.add(btnPresenca, 0, 1);
+        gridPane.add(btnSair, 1, 1);
         //exibe a janela de menu
         menu.show();
     }
