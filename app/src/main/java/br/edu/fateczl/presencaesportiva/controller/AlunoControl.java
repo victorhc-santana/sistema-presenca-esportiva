@@ -1,4 +1,9 @@
-/*adicionado funções de salvar e pesquisar, procurar como atualizar e remover*/
+/*Nome do autor: Victor Hugo Campos Santana
+Nota do autor: O codigo aqui presente foi feito com a ideia de estudar e compreender a matéria
+de POO, está sujeita a erros e falhas, podendo ser Otimizado. Inteligencia Aritifical generativa (Claude IA e ChatGPT) 
+foi utilizada para auxiliar a compreensão e organização do código em auxilio com os materiais 
+providenciados pelo professor. O codigo não foi gerado por IA generativa.
+*/
 
 package br.edu.fateczl.presencaesportiva.controller;
 
@@ -15,7 +20,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AlunoControl {
+    
+    /*Lista Observavel, table view - material disponivel nos slides "Observer: padrão de projetos"
+    tem como objetivo criar uma lista observavel que notifica automaticamente o table view
+    quando a lista é modificada, permitindo que a interface gráfica seja atualizada em tempo real.*/
     private ObservableList<Aluno> lista = FXCollections.observableArrayList();
+
+
+    /*Propriedades de JavaFX - vinculadas a tela via binding, material disponivel nos slides "13-table view"*/
     private IntegerProperty id = new SimpleIntegerProperty(0);
     private StringProperty nome = new SimpleStringProperty("");
     private StringProperty email = new SimpleStringProperty("");
@@ -25,11 +37,14 @@ public class AlunoControl {
     private StringProperty cpf = new SimpleStringProperty(""); 
     private ObjectProperty<LocalDate> nascimento = new SimpleObjectProperty<>(LocalDate.now());
 
+    //Getter da lista -usado para tableview
     public ObservableList<Aluno> getLista() {
         return lista;
     }
-    
-     public void fromEntity( Aluno aluno ) {
+
+    //fromEntity carrega os dados de um aluno na tela, os convertendo adequadamente
+    //utilizado em atualizar()
+    public void fromEntity( Aluno aluno ) {
         if (aluno != null) {
             id.set( aluno.getId() );
             nome.set( aluno.getNome() );
@@ -42,6 +57,8 @@ public class AlunoControl {
         }
     }
 
+    //toEntity converte os dados da tela para um objeto do tipo Aluno
+    //utilizado em salvar()
     public Aluno toEntity() {
         Aluno aluno = new Aluno();
         aluno.setId( id.get() );
@@ -55,6 +72,9 @@ public class AlunoControl {
         return aluno;
     }
 
+    //-----------------------------------------
+    //operações de CRUD - Create, Read, Update, Delete
+    //-----------------------------------------
     public void salvar(){
         lista.add( toEntity() );
     }
@@ -67,7 +87,7 @@ public class AlunoControl {
         }
         return null;
     }
-
+    //atualizar a função de excluir com o visto em sala
     public void excluir(){
         Aluno aluno = pesquisar();
         if (aluno != null) {
@@ -75,6 +95,8 @@ public class AlunoControl {
         }
     }
     
+
+    //getter das propriedades - usado para o binding
     public StringProperty nomeProperty() {
         return nome;
     }

@@ -3,14 +3,10 @@ package br.edu.fateczl.presencaesportiva.view;
 import java.time.LocalDate;
 
 import br.edu.fateczl.presencaesportiva.controller.AlunoControl;
-
-//import java.time.LocalDate;
-
 import br.edu.fateczl.presencaesportiva.model.Aluno;
-//import br.edu.fateczl.presencaesportiva.model.Usuario;
+
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-//import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.util.StringConverter;
@@ -23,19 +19,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-//import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
 public class TelaAluno extends Application {
+    @SuppressWarnings("unchecked")
     public void start(Stage aluno) {
+
         AlunoControl control = new AlunoControl();
+
         //inicia border pane para a tela do aluno e um grid pane para os campos de entrada
         BorderPane borderPane = new BorderPane();
         GridPane gridPane= new GridPane(10,10);
         gridPane.setAlignment(Pos.CENTER);
+
         //adiciona o grid pane ao topo do border pane e a tabela de alunos ao centro
         borderPane.setTop(gridPane);
         TableView<Aluno> tabela = new TableView<>();
@@ -53,6 +52,7 @@ public class TelaAluno extends Application {
         TextField txtDataNascimento = new TextField();
         TextField txtEndereco = new TextField();
         TextField txtModalidade = new TextField();
+        
         //atribui funções aos botões
         Button btnSalvar = new Button("Salvar");
         btnSalvar.setOnAction(e -> {
