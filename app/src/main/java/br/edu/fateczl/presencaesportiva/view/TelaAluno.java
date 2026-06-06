@@ -5,13 +5,11 @@ import java.time.LocalDate;
 import br.edu.fateczl.presencaesportiva.controller.AlunoControl;
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 
-import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.util.StringConverter;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -21,12 +19,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
-public class TelaAluno extends Application {
+public class TelaAluno implements Tela {
     @SuppressWarnings("unchecked")
-    public void start(Stage aluno) {
+    public Pane render() {
 
         AlunoControl control = new AlunoControl();
 
@@ -39,10 +38,6 @@ public class TelaAluno extends Application {
         borderPane.setTop(gridPane);
         TableView<Aluno> tabela = new TableView<>();
         borderPane.setCenter(tabela);
-
-        // Configura a cena e o título da janela
-        aluno.setTitle("Tela do Aluno");
-        aluno.setScene(new Scene(borderPane, 800, 600));
 
         // Cria os componentes da tela do aluno e os adiciona ao grid pane
         TextField txtNome = new TextField();
@@ -69,7 +64,6 @@ public class TelaAluno extends Application {
         btnVoltar.setOnAction(e -> {
             TelaMenu telaMenu = new TelaMenu();
             telaMenu.start(new Stage());
-            aluno.close();
         });
         Button btnPesquisar = new Button("Pesquisar");
         btnPesquisar.setOnAction(e -> {
@@ -140,6 +134,6 @@ public class TelaAluno extends Application {
              colEmail, colTelefone, colNascimento, colEndereco, colModalidade);
         tabela.setItems(control.getLista());
         //adiciona funções aos botões
-        aluno.show();
+        return borderPane;
     }
 }
