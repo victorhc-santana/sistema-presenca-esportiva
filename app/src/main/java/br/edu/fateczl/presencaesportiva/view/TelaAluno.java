@@ -55,11 +55,6 @@ public class TelaAluno implements Tela {
             tabela.refresh();
             new Alert(AlertType.INFORMATION, "Aluno registrado com sucesso").show();
         });
-        Button btnExcluir = new Button("Excluir");
-        btnExcluir.setOnAction(e -> {
-            control.excluir();
-            tabela.refresh();
-        });
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
             TelaMenu telaMenu = new TelaMenu();
@@ -97,7 +92,7 @@ public class TelaAluno implements Tela {
         gridPane.add(new Label("Modalidade: "), 2, 3);
         gridPane.add(txtModalidade, 3, 3);
         gridPane.add(btnSalvar, 0, 4);
-        gridPane.add(btnExcluir, 1, 4);
+        //gridPane.add(btnExcluir, 1, 4);
         gridPane.add(btnVoltar, 3, 4);
         gridPane.add(btnPesquisar, 2, 0);
 
@@ -134,6 +129,7 @@ public class TelaAluno implements Tela {
              colEmail, colTelefone, colNascimento, colEndereco, colModalidade);
         tabela.setItems(control.getLista());
         //adiciona funções aos botões
+        
         return borderPane;
     }
 }

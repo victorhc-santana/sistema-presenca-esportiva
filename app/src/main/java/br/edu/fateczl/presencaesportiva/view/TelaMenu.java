@@ -22,10 +22,10 @@ public class TelaMenu extends Application{
         Button btnPresenca = new Button("Registrar Presença");
         Button btnSair = new Button("Sair");
 
-        btnAluno.setOnAction(e -> {
+        /*btnAluno.setOnAction(e -> {
             TelaAluno telaAluno = new TelaAluno();
             telaAluno.start(new Stage());
-        });
+        });*/
         btnTurma.setOnAction(e -> {
             TelaTurma telaTurma = new TelaTurma();
             telaTurma.start(new Stage());

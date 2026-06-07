@@ -9,6 +9,8 @@ package br.edu.fateczl.presencaesportiva.controller;
 
 import java.time.LocalDate;
 
+import br.edu.fateczl.presencaesportiva.DAO.alunoDAO;
+import br.edu.fateczl.presencaesportiva.DAO.alunoDAOImplementation;
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -19,12 +21,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class AlunoControl {
+public class AlunoControl  {
     
     /*Lista Observavel, table view - material disponivel nos slides "Observer: padrão de projetos"
     tem como objetivo criar uma lista observavel que notifica automaticamente o table view
     quando a lista é modificada, permitindo que a interface gráfica seja atualizada em tempo real.*/
     private ObservableList<Aluno> lista = FXCollections.observableArrayList();
+    private alunoDAO dao = new alunoDAOImplementation();
 
 
     /*Propriedades de JavaFX - vinculadas a tela via binding, material disponivel nos slides "13-table view"*/
@@ -57,6 +60,17 @@ public class AlunoControl {
         }
     }
 
+    public void limparCampos() { 
+        id.set(0);
+        nome.set("");
+        cpf.set("");
+        nascimento.set(LocalDate.now());
+        email.set("");
+        telefone.set("");
+        modalidade.set("");
+        endereco.set("");
+    }
+
     //toEntity converte os dados da tela para um objeto do tipo Aluno
     //utilizado em salvar()
     public Aluno toEntity() {
@@ -76,23 +90,35 @@ public class AlunoControl {
     //operações de CRUD - Create, Read, Update, Delete
     //-----------------------------------------
     public void salvar(){
-        lista.add( toEntity() );
+        Aluno aluno = toEntity();
+        System.out.println("ID do Filme ==> " + aluno.getId());
+        if (id.get() > 0) { 
+            dao.atualizar(id.get(), aluno);
+        } else { 
+            dao.cadastrar( aluno );
+        }
+        limparCampos();
+        carregar();
     }
 
-    public Aluno pesquisar(){
-        for (Aluno aluno : lista) {
-            if (aluno.getId() == id.get()) {
-                return aluno;
-            }
-        }
-        return null;
+    private void carregar() {
+       lista.clear();
+        lista.addAll( 
+            dao.pesquisarPorNome("")
+        );
+    }
+
+    public void pesquisar(){
+         lista.clear();
+        lista.addAll( 
+            dao.pesquisarPorNome( nomeProperty().get())
+        );
     }
     //atualizar a função de excluir com o visto em sala
-    public void excluir(){
-        Aluno aluno = pesquisar();
-        if (aluno != null) {
-            lista.remove(aluno);
-        }
+    public void excluir(int indice){
+        Aluno a = lista.get( indice );
+        dao.apagar(a);
+        carregar();
     }
     
 
