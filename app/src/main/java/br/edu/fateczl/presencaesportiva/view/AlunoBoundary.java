@@ -2,28 +2,34 @@ package br.edu.fateczl.presencaesportiva.view;
 
 import java.time.LocalDate;
 
+import java.util.Optional;
+
 import br.edu.fateczl.presencaesportiva.controller.AlunoControl;
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
-public class TelaAluno implements Tela {
+public class AlunoBoundary implements Tela {
     @SuppressWarnings("unchecked")
     public Pane render() {
 
@@ -54,11 +60,6 @@ public class TelaAluno implements Tela {
             control.salvar();
             tabela.refresh();
             new Alert(AlertType.INFORMATION, "Aluno registrado com sucesso").show();
-        });
-        Button btnVoltar = new Button("Voltar");
-        btnVoltar.setOnAction(e -> {
-            TelaMenu telaMenu = new TelaMenu();
-            telaMenu.start(new Stage());
         });
         Button btnPesquisar = new Button("Pesquisar");
         btnPesquisar.setOnAction(e -> {
@@ -92,8 +93,6 @@ public class TelaAluno implements Tela {
         gridPane.add(new Label("Modalidade: "), 2, 3);
         gridPane.add(txtModalidade, 3, 3);
         gridPane.add(btnSalvar, 0, 4);
-        //gridPane.add(btnExcluir, 1, 4);
-        gridPane.add(btnVoltar, 3, 4);
         gridPane.add(btnPesquisar, 2, 0);
 
         //Criando as colunas
@@ -121,15 +120,56 @@ public class TelaAluno implements Tela {
         TableColumn<Aluno, String> colModalidade = new TableColumn<>("Modalidade");
         colModalidade.setCellValueFactory(itemData -> 
             new ReadOnlyStringWrapper(itemData.getValue().getModalidade()));
+        TableColumn<Aluno, Void> colAcoes = new TableColumn<>("Ações");
+
         //Adicionando as colunas na tabela
         tabela.getSelectionModel().selectedItemProperty().addListener(
             (obj, antigo, novo) -> control.fromEntity( novo )
         );
+
         tabela.getColumns().addAll(colId, colNome, colCpf,
-             colEmail, colTelefone, colNascimento, colEndereco, colModalidade);
+             colEmail, colTelefone, colNascimento, colEndereco, colModalidade, colAcoes);
         tabela.setItems(control.getLista());
-        //adiciona funções aos botões
-        
+        //adiciona exclusão de aluno
+
+        //instancia o cell factory para criar um botão de exclusão em cada linha da tabela
+        Callback<TableColumn<Aluno, Void>, TableCell<Aluno, Void>> cellFactory = new Callback<>() {
+            @Override
+
+            public TableCell<Aluno, Void> call(final TableColumn<Aluno, Void> param) {
+                return new TableCell<>() {
+                    Button btnExcluir = new Button("Excluir");
+                    {   
+                        Image icondelete = new Image(getClass().getResourceAsStream("/exclusao.png"));
+                        ImageView iconView = new ImageView(icondelete);
+                        iconView.setFitWidth(16);
+                        iconView.setFitHeight(16);
+                        btnExcluir.setGraphic(iconView);
+                        btnExcluir.setOnAction((e) -> {
+                            //da a mensagem de confirmação para o usuário antes de excluir o aluno 
+                            Alert alert = new Alert(AlertType.CONFIRMATION,
+                                 "Tem certeza que deseja excluir este aluno?"
+                                , ButtonType.YES, ButtonType.NO);
+
+                            Optional<ButtonType> result = alert.showAndWait();
+                            
+                            if (result.isPresent() && result.get() == ButtonType.YES) {
+                                control.excluir(getIndex());
+                            }
+                        });
+                    }
+                    public void updateItem(Void parm, boolean empty) {
+                        
+                        if (!empty) {
+                            setGraphic(btnExcluir);
+                        } else {
+                            setGraphic(null);
+                        }
+                    }
+                };
+            }
+        };
+        colAcoes.setCellFactory(cellFactory);
         return borderPane;
     }
 }

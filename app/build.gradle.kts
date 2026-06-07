@@ -23,6 +23,14 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    // Driver MariaDB
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.3.2")
+
+    // JavaFX
+    implementation("org.openjfx:javafx-controls:21")
+    implementation("org.openjfx:javafx-fxml:21")
+    
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -42,3 +50,4 @@ tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
