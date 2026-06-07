@@ -97,7 +97,7 @@ public class TelaAluno implements Tela {
         gridPane.add(btnPesquisar, 2, 0);
 
         //Criando as colunas
-        TableColumn<Aluno, Integer> colId = new TableColumn<>("ID");
+        TableColumn<Aluno, Long> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(itemData -> 
             new ReadOnlyObjectWrapper<>(itemData.getValue().getId()));
         TableColumn<Aluno, String> colNome = new TableColumn<>("Nome");

@@ -15,8 +15,8 @@ import br.edu.fateczl.presencaesportiva.model.Aluno;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +31,7 @@ public class AlunoControl  {
 
 
     /*Propriedades de JavaFX - vinculadas a tela via binding, material disponivel nos slides "13-table view"*/
-    private IntegerProperty id = new SimpleIntegerProperty(0);
+    private LongProperty id = new SimpleLongProperty(0);
     private StringProperty nome = new SimpleStringProperty("");
     private StringProperty email = new SimpleStringProperty("");
     private StringProperty telefone = new SimpleStringProperty("");
@@ -151,7 +151,7 @@ public class AlunoControl  {
         return nascimento;
     }
     
-    public IntegerProperty idProperty() {
+    public LongProperty idProperty() {
         return id;
     }
 }

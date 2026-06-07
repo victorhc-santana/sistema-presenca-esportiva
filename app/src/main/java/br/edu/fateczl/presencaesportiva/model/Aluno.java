@@ -3,7 +3,7 @@ package br.edu.fateczl.presencaesportiva.model;
 import java.time.LocalDate;
 
 public class Aluno {
-    private int id = 0;
+    private long id = 0;
     private String nome = "";
     private String cpf = "";
     private String email = "";
@@ -16,7 +16,7 @@ public class Aluno {
         super();
     }
 
-    public Aluno(int id, String nome, String cpf, String email, String telefone,
+    public Aluno(long id, String nome, String cpf, String email, String telefone,
          LocalDate dataNascimento, String endereco, String modalidade) {
         this.id = id;
         this.nome = nome;
@@ -29,12 +29,12 @@ public class Aluno {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
