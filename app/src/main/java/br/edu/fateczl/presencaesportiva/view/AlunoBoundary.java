@@ -1,7 +1,6 @@
 package br.edu.fateczl.presencaesportiva.view;
 
-import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import br.edu.fateczl.presencaesportiva.controller.AlunoControl;
@@ -11,12 +10,12 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -27,9 +26,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.util.converter.LocalDateStringConverter;
 
 public class AlunoBoundary implements Tela {
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DatePicker dtaLancamento = new DatePicker();
     @SuppressWarnings("unchecked")
     public Pane render() {
 
@@ -50,7 +50,6 @@ public class AlunoBoundary implements Tela {
         TextField txtCpf = new TextField();
         TextField txtEmail = new TextField();
         TextField txtTelefone = new TextField();
-        TextField txtDataNascimento = new TextField();
         TextField txtEndereco = new TextField();
         TextField txtModalidade = new TextField();
         
@@ -66,15 +65,12 @@ public class AlunoBoundary implements Tela {
             control.pesquisar();
             tabela.refresh();
         });
-
-        StringConverter<? extends LocalDate> converter = new LocalDateStringConverter();
         
         Bindings.bindBidirectional(txtNome.textProperty(), control.nomeProperty());
         Bindings.bindBidirectional(txtCpf.textProperty(), control.cpfProperty());
         Bindings.bindBidirectional(txtEmail.textProperty(), control.emailProperty());
         Bindings.bindBidirectional(txtTelefone.textProperty(), control.telefoneProperty());
-        Bindings.bindBidirectional(txtDataNascimento.textProperty(), control.nascimentoProperty(),
-             (StringConverter<LocalDate>) converter);
+        Bindings.bindBidirectional(dtaLancamento.valueProperty(), control.nascimentoProperty());
         Bindings.bindBidirectional(txtEndereco.textProperty(), control.enderecoProperty());
         Bindings.bindBidirectional(txtModalidade.textProperty(), control.modalidadeProperty());
 
@@ -87,7 +83,7 @@ public class AlunoBoundary implements Tela {
         gridPane.add(new Label("Telefone: "), 0, 3);
         gridPane.add(txtTelefone, 1, 3);
         gridPane.add(new Label("Data de Nascimento: "), 2, 1);
-        gridPane.add(txtDataNascimento, 3, 1);
+        gridPane.add(dtaLancamento, 3, 1);
         gridPane.add(new Label("Endereço: "), 2, 2);
         gridPane.add(txtEndereco, 3, 2);
         gridPane.add(new Label("Modalidade: "), 2, 3);
@@ -111,9 +107,9 @@ public class AlunoBoundary implements Tela {
         TableColumn<Aluno, String> colTelefone = new TableColumn<>("Telefone");
         colTelefone.setCellValueFactory(itemData ->
             new ReadOnlyStringWrapper(itemData.getValue().getTelefone()));
-        TableColumn<Aluno, LocalDate> colNascimento = new TableColumn<>("Data de Nascimento");
+        TableColumn<Aluno, String> colNascimento = new TableColumn<>("Data de Nascimento");
         colNascimento.setCellValueFactory(itemData ->
-            new ReadOnlyObjectWrapper<>(itemData.getValue().getDataNascimento()));
+            new ReadOnlyStringWrapper(itemData.getValue().getDataNascimento().format(dtf)));
         TableColumn<Aluno, String> colEndereco = new TableColumn<>("Endereço");
         colEndereco.setCellValueFactory(itemData -> 
             new ReadOnlyStringWrapper(itemData.getValue().getEndereco()));      
@@ -140,7 +136,7 @@ public class AlunoBoundary implements Tela {
                 return new TableCell<>() {
                     Button btnExcluir = new Button("Excluir");
                     {   
-                        Image icondelete = new Image(getClass().getResourceAsStream("/exclusao.png"));
+                        Image icondelete = new Image(getClass().getResourceAsStream("/images/exclusao.png"));
                         ImageView iconView = new ImageView(icondelete);
                         iconView.setFitWidth(16);
                         iconView.setFitHeight(16);

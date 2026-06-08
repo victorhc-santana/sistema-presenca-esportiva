@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.fateczl.presencaesportiva.model.Aluno;
@@ -15,7 +16,6 @@ public class alunoDAOImplementation implements alunoDAO{
         "jdbc:mariadb://localhost:3306/presenca_esportiva?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "123456";
-    private List<Aluno> alunos;
 
     private Connection con;
 
@@ -33,16 +33,11 @@ public class alunoDAOImplementation implements alunoDAO{
             e.printStackTrace();
         }
     }
-    
-
-    public alunoDAOImplementation(List<Aluno> alunos) {
-        this.alunos = alunos;
-    }
 
     @Override
     public void cadastrar(Aluno a) {
         try {
-            String sql = "INSERT INTO alunos (nome, cpf, data_nascimento, email, telefone, modalidade, endereco) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO aluno (nome, cpf, nascimento, email, telefone, modalidade, endereco) VALUES (?, ?, ?, ?, ?, ?, ?)";
             var stmt = con.prepareStatement(sql);
             stmt.setString(1, a.getNome());
             stmt.setString(2, a.getCpf());
@@ -61,7 +56,7 @@ public class alunoDAOImplementation implements alunoDAO{
     @Override
     public void apagar(Aluno a) {
         try {
-            String sql = "DELETE FROM alunos WHERE id = ?";
+            String sql = "DELETE FROM aluno WHERE id = ?";
             var stmt = con.prepareStatement(sql);
             stmt.setLong(1, a.getId());
             stmt.executeUpdate();
@@ -96,6 +91,7 @@ public class alunoDAOImplementation implements alunoDAO{
 
     @Override
     public List<Aluno> pesquisarPorNome(String nome) {
+        List<Aluno> lista = new ArrayList<>();
         try {
             String sql = "SELECT * FROM aluno WHERE nome LIKE ?";
             PreparedStatement stm = con.prepareStatement(sql);
@@ -111,13 +107,13 @@ public class alunoDAOImplementation implements alunoDAO{
                 a.setDataNascimento(rs.getDate("nascimento").toLocalDate());
                 a.setEndereco(rs.getString("endereco"));
                 a.setModalidade(rs.getString("modalidade"));
-                alunos.add(a);
+                lista.add(a);
             }
-            System.out.println("Alunos selecionados com sucesso");
+            System.out.println("aluno selecionados com sucesso");
         } catch (SQLException e) {
-            System.out.println("Erro ao pesquisar alunos");
+            System.out.println("Erro ao pesquisar aluno");
             e.printStackTrace();
         }
-        return alunos;
+        return lista;
     }
 }
