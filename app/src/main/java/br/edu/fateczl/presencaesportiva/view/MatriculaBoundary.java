@@ -68,8 +68,8 @@ public class MatriculaBoundary implements Tela {
         gridPane.add(txtTurma, 1, 1);
         gridPane.add(lblDataMatricula, 0, 2);
         gridPane.add(txtDataMatricula, 1, 2);
-        gridPane.add(btnSalvar,0,1);
-        gridPane.add(btnPesquisar,1,1);
+        gridPane.add(btnSalvar,0,3);
+        gridPane.add(btnPesquisar,2,2);
     
         TableColumn<Matricula, Long> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(itemData -> new ReadOnlyObjectWrapper<>(itemData.getValue().getId()));
