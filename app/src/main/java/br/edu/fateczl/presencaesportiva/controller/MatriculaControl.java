@@ -75,7 +75,7 @@ public class MatriculaControl {
     private void carregar() {
         matriculas.clear();
         matriculas.addAll(
-                dao.pesquisarPorDia(""));
+                dao.pesquisarPorDia(dataMatriculaProperty().get()));
     }
 
     private void pesquisar() {

@@ -3,6 +3,8 @@ package br.edu.fateczl.presencaesportiva.DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 import br.edu.fateczl.presencaesportiva.model.Matricula;
@@ -44,6 +46,24 @@ public class MatriculaDAOImplementation implements MatriculaDAO {
             System.out.println("Erro ao cadastrar matricula");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void apagar(Matricula f) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'apagar'");
+    }
+
+    @Override
+    public void atualizar(long id, Matricula f) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+    }
+
+    @Override
+    public List<Matricula> pesquisarPorDia(LocalDate dataMatricula) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pesquisarPorDia'");
     }
 
 }

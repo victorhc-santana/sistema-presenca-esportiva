@@ -3,7 +3,7 @@ package br.edu.fateczl.presencaesportiva.view;
 import javafx.scene.control.TableCell;
 //import br.edu.fateczl.presencaesportiva.controller.MatriculaControl;
 import br.edu.fateczl.presencaesportiva.model.Matricula;
-import br.edu.fateczl.presencaesportiva.model.Turma;
+//import br.edu.fateczl.presencaesportiva.model.Turma;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.geometry.Pos;
@@ -20,11 +20,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import javafx.scene.image.ImageView;
 
 public class MatriculaBoundary implements Tela {
-
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     @Override
     public Pane render() {
 
@@ -81,7 +83,7 @@ public class MatriculaBoundary implements Tela {
         colTurma.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData.getValue().getTurma().getNome()));
         // Data Matricula
         TableColumn<Matricula, String> colDataMatricula = new TableColumn<>("Data matricula");
-        colDataMatricula.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData.getValue().getDataMatricula()));
+        colDataMatricula.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData.getValue().getDataMatricula().format(dtf)));
         //Ações que podem ser feitas para cada linha da tabela
         TableColumn<Matricula, Void> colAcao = new TableColumn<>("Ações");
 
