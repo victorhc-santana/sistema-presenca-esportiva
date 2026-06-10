@@ -11,12 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
 
 public class PresencaBoundary implements Tela {
@@ -78,6 +80,32 @@ public class PresencaBoundary implements Tela {
         tabela.getColumns().addAll(colId, colAluno, colTurma, colData);
         tabela.setItems(control.getLista());
         
+        Callback<TableColumn<Presenca, Boolean>, TableCell<Presenca, Boolean>> cellFactory = new Callback<>() {
+        @Override
+        public TableCell<Presenca, Boolean> call(TableColumn<Presenca, Boolean> param) {
+            return new TableCell<>() {
+                CheckBox cb = new CheckBox();
+                {
+                    cb.setOnAction(e -> {
+                    // pega a linha correspondente e atualiza o valor
+                    Presenca row = getTableView().getItems().get(getIndex());
+                    row.setStatus(cb.isSelected());
+                });
+                }
+
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty); // obrigatório chamar o super
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    cb.setSelected(item); // sincroniza o estado do checkbox com o valor da linha
+                    setGraphic(cb);
+                }
+            }
+        };
+    }
+};
         return borderPane;
     }
 

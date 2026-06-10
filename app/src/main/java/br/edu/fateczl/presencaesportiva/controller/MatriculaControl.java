@@ -81,7 +81,7 @@ public class MatriculaControl {
     private void pesquisar() {
         matriculas.clear();
         matriculas.addAll(
-                dao.pesquisarPorAluno(alunoProperty().getNome()));
+                dao.pesquisarPorAluno(alunoProperty().getName()));
     }
 
     public void excluir(int indice) {

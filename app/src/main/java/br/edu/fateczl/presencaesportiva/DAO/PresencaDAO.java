@@ -10,5 +10,5 @@ public interface PresencaDAO {
     void cadastrar(Presenca p);
     void apagar(Presenca p);
     void atualizar(long id, Presenca p);
-    List<Presenca> pesquisarPorDia(String modalidade, LocalDate dia);
+    List<Presenca> pesquisarPorDia(String nomeTurma, LocalDate dia);
 }

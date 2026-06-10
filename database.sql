@@ -27,15 +27,21 @@ CREATE TABLE IF NOT EXISTS turma (
     nivel       VARCHAR(20)
 );
 
--- Cria a tabela presenca
-CREATE TABLE IF NOT EXISTS presenca (
+-- Cria a tabela matricula
+CREATE TABLE IF NOT EXISTS matricula (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     aluno_id    BIGINT          NOT NULL,
     turma_id    BIGINT          NOT NULL,
-    turma_nome  VARCHAR(100)    NOT NULL,
-    dia         DATE            NOT NULL,
-    status      BOOLEAN         NOT NULL,
+    data_matricula DATE         NOT NULL,
     FOREIGN KEY (aluno_id) REFERENCES aluno(id),
     FOREIGN KEY (turma_id) REFERENCES turma(id)
+);
 
+-- Cria a tabela presenca
+CREATE TABLE IF NOT EXISTS presenca (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    matricula_id BIGINT          NOT NULL,
+    dia         DATE            NOT NULL,
+    status      BOOLEAN         NOT NULL,
+    FOREIGN KEY (matricula_id) REFERENCES matricula(id)
 );
