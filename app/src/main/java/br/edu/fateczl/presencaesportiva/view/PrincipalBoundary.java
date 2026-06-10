@@ -13,7 +13,7 @@ public class PrincipalBoundary extends Application {
     private Pane alunoPane = new AlunoBoundary().render();
     private Pane turmaPane = new TurmaBoundary().render();
     private Pane presencaPane = new PresencaBoundary().render();
-    private Pane matriculaPane = new TurmaBoundary().render();
+    private Pane matriculaPane = new MatriculaBoundary().render();
     @Override
     public void start(Stage stage) { 
         Scene scn = new Scene(pane, 800, 600);
