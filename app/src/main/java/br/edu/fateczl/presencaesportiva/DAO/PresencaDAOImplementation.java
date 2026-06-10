@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.fateczl.presencaesportiva.model.Matricula;
 import br.edu.fateczl.presencaesportiva.model.Presenca;
 
 public class PresencaDAOImplementation implements PresencaDAO {
@@ -33,14 +34,12 @@ public class PresencaDAOImplementation implements PresencaDAO {
     @Override
     public void cadastrar(Presenca p) {
         try{
-            String sql = "INSERT INTO presenca (id, aluno_id, turma_id, turma_nome, dia, status) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO presenca (id, matricula, dia, status) VALUES (?, ?, ?, ?)";
             var stmt = con.prepareStatement(sql);
             stmt.setLong(1, p.getId());
-            stmt.setLong(2, p.getAlunoId());
-            stmt.setLong(3, p.getTurmaId());
-            stmt.setString(4, p.getTurmaNome());
-            stmt.setDate(5, java.sql.Date.valueOf(p.getDia()));
-            stmt.setBoolean(6, p.getStatus());
+            stmt.setObject(2, p.getMatricula());
+            stmt.setDate(3, java.sql.Date.valueOf(p.getDia()));
+            stmt.setBoolean(4, p.getStatus());
             stmt.executeUpdate();
          } catch (SQLException e) {
              System.out.println("Erro ao cadastrar presença");
@@ -64,13 +63,12 @@ public class PresencaDAOImplementation implements PresencaDAO {
     @Override
     public void atualizar(long id, Presenca p) {
         try {
-            String sql = "UPDATE presenca SET aluno_id = ?, turma_id = ?, dia = ?, status = ? WHERE id = ?";
+            String sql = "UPDATE presenca SET matricula = ?, dia = ?, status = ? WHERE id = ?";
             var stmt = con.prepareStatement(sql);
-            stmt.setLong(1, p.getAlunoId());
-            stmt.setLong(2, p.getTurmaId());
-            stmt.setDate(3, java.sql.Date.valueOf(p.getDia()));
-            stmt.setBoolean(4, p.getStatus());
-            stmt.setLong(5, id);
+            stmt.setObject(1, p.getMatricula());
+            stmt.setDate(2, java.sql.Date.valueOf(p.getDia()));
+            stmt.setBoolean(3, p.getStatus());
+            stmt.setLong(4, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar presença");
@@ -82,22 +80,18 @@ public class PresencaDAOImplementation implements PresencaDAO {
     public List<Presenca> pesquisarPorDia(String modalidade, LocalDate dia) {
         List<Presenca> presencas = new ArrayList<>();
         try {
-            String sql = "SELECT p.id, p.aluno_id, p.turma_id, p.dia, p.status " +
+            String sql = "SELECT p.id, p.matricula, p.dia, p.status " +
                          "FROM presenca p " +
-                         "JOIN aluno a ON p.aluno_id = a.id " +
-                         "WHERE a.modalidade = ? AND p.dia = ?";
+                         "WHERE p.dia = ?";
             var stmt = con.prepareStatement(sql);
-            stmt.setString(1, modalidade);
-            stmt.setDate(2, java.sql.Date.valueOf(dia));
+            stmt.setDate(1, java.sql.Date.valueOf(dia));
             var rs = stmt.executeQuery();
             while (rs.next()) {
                 long id = rs.getLong("id");
-                long alunoId = rs.getLong("aluno_id");
-                long turmaId = rs.getLong("turma_id");
-                String turmaNome = ""; // Você pode precisar ajustar isso para obter o nome da turma corretamente
+                Matricula matricula = (Matricula) rs.getObject("matricula");
                 LocalDate data = rs.getDate("dia").toLocalDate();
                 boolean status = rs.getBoolean("status");
-                presencas.add(new Presenca(id, alunoId, turmaId, turmaNome, data, status));
+                presencas.add(new Presenca(id,  matricula, data, status));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao pesquisar presença por dia");

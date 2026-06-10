@@ -4,17 +4,13 @@ import java.time.LocalDate;
 
 public class Presenca {
     private long id;
-    private long alunoId;
-    private long turmaId;
-    private String turmaNome;
+    private Matricula matricula;
     private LocalDate dia;
     private boolean status;
 
-    public Presenca(long id, long alunoId, long turmaId, String turmaNome, LocalDate dia, boolean status) {
+    public Presenca(long id, Matricula matricula, LocalDate dia, boolean status) {
         this.id = id;
-        this.alunoId = alunoId;
-        this.turmaId = turmaId;
-        this.turmaNome = turmaNome;
+
         this.dia = dia;
         this.status = status;
     }
@@ -26,23 +22,12 @@ public class Presenca {
     public void setId(long id) {
         this.id = id;
     }
-
-    public long getAlunoId() {
-        return alunoId;
+    public Matricula getMatricula() {
+        return matricula;
     }
-
-    public void setAlunoId(long alunoId) {
-        this.alunoId = alunoId;
+    public void setMatricula(Matricula matricula) {
+        this.matricula = matricula;
     }
-
-    public long getTurmaId() {
-        return turmaId;
-    }
-
-    public void setTurmaId(long turmaId) {
-        this.turmaId = turmaId;
-    }
-
     public LocalDate getDia() {
         return dia;
     }
@@ -57,14 +42,6 @@ public class Presenca {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public String getTurmaNome() {
-        return turmaNome;
-    }
-
-    public void setTurmaNome(String turmaNome) {
-        this.turmaNome = turmaNome;
     }
 
 }

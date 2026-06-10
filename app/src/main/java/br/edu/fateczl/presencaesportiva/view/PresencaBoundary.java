@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -52,6 +53,31 @@ public class PresencaBoundary implements Tela {
         gridPane.add(btnPesquisar, 3, 0);
         gridPane.add(btnSalvar, 3, 1);
 
+        //Criando as colunas
+        TableColumn<Presenca, Long> colId = new TableColumn<>("ID");
+        colId.setCellValueFactory(itemData ->
+             new javafx.beans.property.SimpleLongProperty(itemData.getValue().getId()).asObject());
+
+        TableColumn<Presenca, String> colAluno = new TableColumn<>("Aluno");
+        colAluno.setCellValueFactory(itemData ->
+             new javafx.beans.property.SimpleStringProperty(itemData.getValue().getMatricula().getAluno().getNome()));
+
+        TableColumn<Presenca, String> colTurma = new TableColumn<>("Turma");
+        colTurma.setCellValueFactory(itemData ->
+             new javafx.beans.property.SimpleStringProperty(itemData.getValue().getMatricula().getTurma().getNome()));
+
+        TableColumn<Presenca, String> colData = new TableColumn<>("Data");
+        colData.setCellValueFactory(itemData ->
+             new javafx.beans.property.SimpleStringProperty(itemData.getValue().getDia().format(dtf)));
+
+
+        //Adicionando as colunas na tabela
+        tabela.getColumns().addAll(colId, colAluno, colTurma, colData);
+        borderPane.setCenter(tabela);
+
+        tabela.getColumns().addAll(colId, colAluno, colTurma, colData);
+        tabela.setItems(control.getLista());
+        
         return borderPane;
     }
 
