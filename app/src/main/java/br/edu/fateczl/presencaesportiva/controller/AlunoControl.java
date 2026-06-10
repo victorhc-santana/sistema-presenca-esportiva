@@ -9,8 +9,8 @@ package br.edu.fateczl.presencaesportiva.controller;
 
 import java.time.LocalDate;
 
-import br.edu.fateczl.presencaesportiva.DAO.alunoDAO;
-import br.edu.fateczl.presencaesportiva.DAO.alunoDAOImplementation;
+import br.edu.fateczl.presencaesportiva.DAO.AlunoDAO;
+import br.edu.fateczl.presencaesportiva.DAO.AlunoDAOImplementation;
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -27,7 +27,7 @@ public class AlunoControl  {
     tem como objetivo criar uma lista observavel que notifica automaticamente o table view
     quando a lista é modificada, permitindo que a interface gráfica seja atualizada em tempo real.*/
     private ObservableList<Aluno> lista = FXCollections.observableArrayList();
-    private alunoDAO dao = new alunoDAOImplementation();
+    private AlunoDAO dao = new AlunoDAOImplementation();
 
 
     /*Propriedades de JavaFX - vinculadas a tela via binding, material disponivel nos slides "13-table view"*/

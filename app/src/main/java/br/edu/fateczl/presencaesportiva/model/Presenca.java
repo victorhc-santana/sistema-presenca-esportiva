@@ -1,59 +1,70 @@
 package br.edu.fateczl.presencaesportiva.model;
 
-public class Presenca {
-    private int id;
-    private int alunoId;
-    private int turmaId;
-    private String data;
-    private String status;
-    //private string observacao; para adicionar mais atributos
+import java.time.LocalDate;
 
-    public Presenca(int id, int alunoId, int turmaId, String data, String status) {
+public class Presenca {
+    private long id;
+    private long alunoId;
+    private long turmaId;
+    private String turmaNome;
+    private LocalDate dia;
+    private boolean status;
+
+    public Presenca(long id, long alunoId, long turmaId, String turmaNome, LocalDate dia, boolean status) {
         this.id = id;
         this.alunoId = alunoId;
         this.turmaId = turmaId;
-        this.data = data;
+        this.turmaNome = turmaNome;
+        this.dia = dia;
         this.status = status;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getAlunoId() {
+    public long getAlunoId() {
         return alunoId;
     }
 
-    public void setAlunoId(int alunoId) {
+    public void setAlunoId(long alunoId) {
         this.alunoId = alunoId;
     }
 
-    public int getTurmaId() {
+    public long getTurmaId() {
         return turmaId;
     }
 
-    public void setTurmaId(int turmaId) {
+    public void setTurmaId(long turmaId) {
         this.turmaId = turmaId;
     }
 
-    public String getData() {
-        return data;
+    public LocalDate getDia() {
+        return dia;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDia(LocalDate dia) {
+        this.dia = dia;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getTurmaNome() {
+        return turmaNome;
+    }
+
+    public void setTurmaNome(String turmaNome) {
+        this.turmaNome = turmaNome;
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 
-public class alunoDAOImplementation implements alunoDAO{
+public class AlunoDAOImplementation implements AlunoDAO{
 
     private static final String DB_URI = 
         "jdbc:mariadb://localhost:3306/presenca_esportiva?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true";
@@ -19,7 +19,7 @@ public class alunoDAOImplementation implements alunoDAO{
 
     private Connection con;
 
-    public alunoDAOImplementation() {
+    public AlunoDAOImplementation() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             System.out.println("Driver Carregado...");
@@ -109,7 +109,6 @@ public class alunoDAOImplementation implements alunoDAO{
                 a.setModalidade(rs.getString("modalidade"));
                 lista.add(a);
             }
-            System.out.println("aluno selecionados com sucesso");
         } catch (SQLException e) {
             System.out.println("Erro ao pesquisar aluno");
             e.printStackTrace();

@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 
-public interface alunoDAO {
+public interface AlunoDAO {
     void cadastrar(Aluno a);
     void apagar(Aluno f);
     void atualizar(long id, Aluno f);

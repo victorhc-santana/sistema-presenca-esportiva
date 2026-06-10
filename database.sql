@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS aluno (
 
 -- Cria a tabela turma
 CREATE TABLE IF NOT EXISTS turma (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY;
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome        VARCHAR(100)    NOT NULL,
     modalidade  VARCHAR(100)    NOT NULL,
     professor   VARCHAR(100)    NOT NULL,
@@ -25,4 +25,17 @@ CREATE TABLE IF NOT EXISTS turma (
     dia_semana  VARCHAR(20),
     vagas_total BIGINT,
     nivel       VARCHAR(20)
+);
+
+-- Cria a tabela presenca
+CREATE TABLE IF NOT EXISTS presenca (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    aluno_id    BIGINT          NOT NULL,
+    turma_id    BIGINT          NOT NULL,
+    turma_nome  VARCHAR(100)    NOT NULL,
+    dia         DATE            NOT NULL,
+    status      BOOLEAN         NOT NULL,
+    FOREIGN KEY (aluno_id) REFERENCES aluno(id),
+    FOREIGN KEY (turma_id) REFERENCES turma(id)
+
 );

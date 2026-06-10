@@ -1,0 +1,14 @@
+package br.edu.fateczl.presencaesportiva.DAO;
+
+import java.time.LocalDate;
+
+import java.util.List;
+
+import br.edu.fateczl.presencaesportiva.model.Presenca;
+
+public interface PresencaDAO {
+    void cadastrar(Presenca p);
+    void apagar(Presenca p);
+    void atualizar(long id, Presenca p);
+    List<Presenca> pesquisarPorDia(String modalidade, LocalDate dia);
+}
