@@ -178,9 +178,7 @@ public class TurmaBoundary implements Tela {
             }
         };
         colAcao.setCellFactory(cellFactory);
-        //return borderPane; //pq retorna isso ?
-        // Colocando o titulo na tela
         return borderPane;
-    } // chave que fecha a classe principal
+    } 
 
 }
