@@ -1,19 +1,17 @@
 package br.edu.fateczl.presencaesportiva.model;
 
-import java.time.LocalDate;
-
 public class Matricula {
 
     private long id = 0;
     private Aluno aluno;
     private Turma turma;
-    private LocalDate dataMatricula;
+    private String dataMatricula;
 
     public Matricula() {
         super();
     }
 
-    public Matricula(long id, Aluno aluno, Turma turma, LocalDate dataMatricula) {
+    public Matricula(long id, Aluno aluno, Turma turma, String dataMatricula) {
         this.id = id;
         this.aluno = aluno;
         this.turma = turma;
@@ -45,7 +43,7 @@ public class Matricula {
         this.turma = turma;
     }
 
-    public LocalDate getDataMatricula() {
+    public String getDataMatricula() {
         return dataMatricula;
     }
 
