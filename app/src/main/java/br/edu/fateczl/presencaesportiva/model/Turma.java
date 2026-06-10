@@ -1,18 +1,28 @@
+/*Criação da entidade Turma com atributos e seus getter e setter
+*/
 package br.edu.fateczl.presencaesportiva.model;
 
-import java.sql.Time;
-
 public class Turma {
+
+    //Variáveis de instância
+
     private int id;
     private String nome;
     private String modalidade;
     private String professor;
-    private Time horario;
+    private String horario;
     private String diaSemana;
     private int vagasTotal;
     private String nivel;
 
-    public Turma(int id, String nome, String modalidade, String professor, Time horario, String diaSemana, int vagasTotal, String nivel) {
+    //Construtor
+
+    public Turma(){
+        super();
+    }
+
+    public Turma(int id, String nome, String modalidade, String professor, String horario, String diaSemana, int vagasTotal, String nivel){
+
         this.id = id;
         this.nome = nome;
         this.modalidade = modalidade;
@@ -21,71 +31,73 @@ public class Turma {
         this.diaSemana = diaSemana;
         this.vagasTotal = vagasTotal;
         this.nivel = nivel;
+
     }
 
-    public int getId() {
+    //Getters e Setters para a entidade Turma
+
+    public int getId(){
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id){
         this.id = id;
     }
 
-    public String getNome() {
+    public String getNome(){
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome){
         this.nome = nome;
     }
 
-    public String getModalidade() {
+    public String getModalidade(){
         return modalidade;
     }
 
-    public void setModalidade(String modalidade) {
+    public void setModalidade(String modalidade){
         this.modalidade = modalidade;
     }
 
-    public String getProfessor() {
+    public String getProfessor(){
         return professor;
     }
 
-    public void setProfessor(String professor) {
+    public void setProfessor(String professor){
         this.professor = professor;
     }
 
-    public Time getHorario() {
+    public String getHorario(){
         return horario;
     }
 
-    public void setHorario(Time horario) {
+    public void setHorario(String horario){
         this.horario = horario;
     }
 
-    public String getDiaSemana() {
+    public String getDiaSemana(){
         return diaSemana;
     }
 
-    public void setDiaSemana(String diaSemana) {
+    public void setDiaSemana(String diaSemana){
         this.diaSemana = diaSemana;
     }
 
-    public int getVagasTotal() {
+    public int getVagasTotal(){
         return vagasTotal;
     }
 
-    public void setVagasTotal(int vagasTotal) {
+    public void setVagasTotal(int vagasTotal){
         this.vagasTotal = vagasTotal;
     }
 
-    public String getNivel() {
+    public String getNivel(){
         return nivel;
     }
 
-    public void setNivel(String nivel) {
+    public void setNivel(String nivel){
         this.nivel = nivel;
     }
-
-
+    
 }
