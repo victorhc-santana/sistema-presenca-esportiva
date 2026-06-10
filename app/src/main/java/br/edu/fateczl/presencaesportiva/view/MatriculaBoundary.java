@@ -1,9 +1,8 @@
 package br.edu.fateczl.presencaesportiva.view;
 
 import javafx.scene.control.TableCell;
-//import br.edu.fateczl.presencaesportiva.controller.MatriculaControl;
+import br.edu.fateczl.presencaesportiva.controller.MatriculaControl;
 import br.edu.fateczl.presencaesportiva.model.Matricula;
-//import br.edu.fateczl.presencaesportiva.model.Turma;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.geometry.Pos;
@@ -30,7 +29,7 @@ public class MatriculaBoundary implements Tela {
     @Override
     public Pane render() {
 
-        //MatriculaControl control = new MatriculaControl();
+        MatriculaControl control = new MatriculaControl();
 
         BorderPane borderPane = new BorderPane(); // Criando um BorderPane
         GridPane gridPane = new GridPane(10, 10);
@@ -87,11 +86,11 @@ public class MatriculaBoundary implements Tela {
         //Ações que podem ser feitas para cada linha da tabela
         TableColumn<Matricula, Void> colAcao = new TableColumn<>("Ações");
 
-        //tabela.getSelectionModel().selectedItemProperty().addListener(
-        //(obj, antigo, novo) -> control.fromEntity(novo));
+        tabela.getSelectionModel().selectedItemProperty().addListener(
+        (obj, antigo, novo) -> control.fromEntity(novo));
 
         tabela.getColumns().addAll(colId, colAluno, colTurma, colDataMatricula, colAcao);
-        //tabela.setItems(control.getLista());
+        tabela.setItems(control.getLista());
 
         Callback<TableColumn<Matricula, Void>, TableCell<Matricula, Void>> cellFactory = new Callback<>() {
             @Override
@@ -110,7 +109,7 @@ public class MatriculaBoundary implements Tela {
                                     "Tem certeza que deseja excluir esta matricula?", ButtonType.YES, ButtonType.NO);
                             Optional<ButtonType> result = alert.showAndWait();
                             if (result.isPresent() && result.get() == ButtonType.YES) {
-                                //control.excluir(getIndex());
+                                control.excluir(getIndex());
                             }
                         });
                     }

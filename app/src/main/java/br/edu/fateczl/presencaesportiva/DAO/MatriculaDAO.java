@@ -9,6 +9,6 @@ public interface MatriculaDAO {
     void cadastrar(Matricula a);
     void apagar(Matricula f);
     void atualizar(long id, Matricula f);
-    List<Matricula> pesquisarPorDia (LocalDate dataMatricula);
+    List<Matricula> pesquisarPorAluno (LocalDate dataMatricula);
       
 }

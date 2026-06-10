@@ -75,13 +75,13 @@ public class MatriculaControl {
     private void carregar() {
         matriculas.clear();
         matriculas.addAll(
-                dao.pesquisarPorDia(dataMatriculaProperty().get()));
+                dao.pesquisarPorAluno(alunoProperty().get().getNome()));
     }
 
     private void pesquisar() {
         matriculas.clear();
         matriculas.addAll(
-                dao.pesquisarPorDia(dataMatriculaProperty().get()));
+                dao.pesquisarPorAluno(alunoProperty().getNome()));
     }
 
     public void excluir(int indice) {
