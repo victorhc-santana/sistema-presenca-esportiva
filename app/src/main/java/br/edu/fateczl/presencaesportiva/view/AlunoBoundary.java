@@ -30,7 +30,6 @@ import javafx.scene.layout.Pane;
 public class AlunoBoundary implements Tela {
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private DatePicker dtaLancamento = new DatePicker();
-    @SuppressWarnings("unchecked")
     public Pane render() {
 
         AlunoControl control = new AlunoControl();

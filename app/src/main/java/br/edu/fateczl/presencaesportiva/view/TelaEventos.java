@@ -23,8 +23,7 @@ public class TelaEventos implements Tela {
         TextField txtFim = new TextField();
         TextField txtdiaObservacao = new TextField();
         
-        
-
+        return borderPane;
     }
 
 }

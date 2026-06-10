@@ -13,7 +13,7 @@ public class PrincipalBoundary extends Application {
     private Pane alunoPane = new AlunoBoundary().render();
     private Pane turmaPane = new TurmaBoundary().render();
     private Pane presencaPane = new PresencaBoundary().render();
-
+    private Pane matriculaPane = new MatriculaBoundary().render();
     @Override
     public void start(Stage stage) { 
         Scene scn = new Scene(pane, 800, 600);
@@ -28,10 +28,11 @@ public class PrincipalBoundary extends Application {
         MenuItem mnuAlunoItem = new MenuItem("Alunos");
         MenuItem mnuTurmaItem = new MenuItem("Turmas");
         MenuItem mnuPresencaItem = new MenuItem("Presenças");
+        MenuItem mnuMatriculaItem = new MenuItem("Matrículas");
 
         menuBar.getMenus().addAll( mnuArquivo, mnuCadastro, mnuAjuda);
 
-        mnuCadastro.getItems().addAll( mnuAlunoItem, mnuTurmaItem, mnuPresencaItem );
+        mnuCadastro.getItems().addAll( mnuAlunoItem, mnuTurmaItem, mnuPresencaItem, mnuMatriculaItem );
 
         pane.setTop( menuBar );
 
@@ -39,6 +40,7 @@ public class PrincipalBoundary extends Application {
         mnuAlunoItem.setOnAction( e -> pane.setCenter( alunoPane ) );
         mnuTurmaItem.setOnAction( e -> pane.setCenter( turmaPane ) );
         mnuPresencaItem.setOnAction( e -> pane.setCenter( presencaPane ) );
+        mnuMatriculaItem.setOnAction( e -> pane.setCenter( matriculaPane ) );
 
         stage.setScene(scn);
         stage.setTitle("Presença Esportiva");
