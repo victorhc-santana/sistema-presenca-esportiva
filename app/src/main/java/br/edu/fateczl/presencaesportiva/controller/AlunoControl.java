@@ -102,14 +102,14 @@ public class AlunoControl  {
     }
 
     private void carregar() {
-       lista.clear();
+        lista.clear();
         lista.addAll( 
             dao.pesquisarPorNome("")
         );
     }
 
     public void pesquisar(){
-         lista.clear();
+        lista.clear();
         lista.addAll( 
             dao.pesquisarPorNome( nomeProperty().get())
         );

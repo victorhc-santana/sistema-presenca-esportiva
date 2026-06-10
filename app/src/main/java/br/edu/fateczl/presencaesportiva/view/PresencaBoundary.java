@@ -33,6 +33,7 @@ public class PresencaBoundary implements Tela {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         borderPane.setTop(gridPane);
+        borderPane.setCenter(tabela);
 
         TextField txtTurma = new TextField();
         TextField txtModalidade = new TextField();
@@ -74,12 +75,13 @@ public class PresencaBoundary implements Tela {
 
 
         //Adicionando as colunas na tabela
-        tabela.getColumns().addAll(colId, colAluno, colTurma, colData);
-        borderPane.setCenter(tabela);
+        tabela.getSelectionModel().selectedItemProperty().addListener(
+            (obj, antigo, novo) -> control.fromEntity( novo )
+        );
 
         tabela.getColumns().addAll(colId, colAluno, colTurma, colData);
         tabela.setItems(control.getLista());
-        
+
         Callback<TableColumn<Presenca, Boolean>, TableCell<Presenca, Boolean>> cellFactory = new Callback<>() {
         @Override
         public TableCell<Presenca, Boolean> call(TableColumn<Presenca, Boolean> param) {

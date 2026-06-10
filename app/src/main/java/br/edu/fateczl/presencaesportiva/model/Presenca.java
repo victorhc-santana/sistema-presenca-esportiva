@@ -15,6 +15,10 @@ public class Presenca {
         this.status = status;
     }
 
+    public Presenca() {
+        //TODO Auto-generated constructor stub
+    }
+
     public long getId() {
         return id;
     }

@@ -13,7 +13,7 @@ import br.edu.fateczl.presencaesportiva.model.Presenca;
 import br.edu.fateczl.presencaesportiva.model.Turma;
 
 public class PresencaDAOImplementation implements PresencaDAO {
-    private static final String DB_URI = "jdbc:maradb://localhost:3306/presenca_esportiva?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true";
+    private static final String DB_URI = "jdbc:mariadb://localhost:3306/presenca_esportiva?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "123456";
 

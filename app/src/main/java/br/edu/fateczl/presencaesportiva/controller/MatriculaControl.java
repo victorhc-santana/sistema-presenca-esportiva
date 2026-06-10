@@ -2,9 +2,6 @@ package br.edu.fateczl.presencaesportiva.controller;
 
 import java.time.LocalDate;
 
-import org.jspecify.annotations.NonNull;
-
-import br.edu.fateczl.presencaesportiva.DAO.MatriculaDAO;
 import br.edu.fateczl.presencaesportiva.DAO.MatriculaDAOImplementation;
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 import br.edu.fateczl.presencaesportiva.model.Matricula;
@@ -13,8 +10,6 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

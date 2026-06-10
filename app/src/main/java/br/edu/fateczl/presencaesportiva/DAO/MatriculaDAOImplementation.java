@@ -137,7 +137,7 @@ public List<Matricula> pesquisarPorAluno(String nomeAluno) {
         e.printStackTrace();
     }
     return matriculas;
+    }   
 }
-    }
 
-}
+
