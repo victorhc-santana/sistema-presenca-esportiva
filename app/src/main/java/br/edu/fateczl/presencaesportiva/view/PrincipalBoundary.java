@@ -11,7 +11,8 @@ import javafx.stage.Stage;
 public class PrincipalBoundary extends Application {
     private BorderPane pane = new BorderPane();
     private Pane alunoPane = new AlunoBoundary().render();
-
+    private Pane turmaPane = new TurmaBoundary().render();
+    private Pane presencaPane = new PresencaBoundary().render();
 
     @Override
     public void start(Stage stage) { 
@@ -25,16 +26,19 @@ public class PrincipalBoundary extends Application {
         Menu mnuAjuda = new Menu("Ajuda");
 
         MenuItem mnuAlunoItem = new MenuItem("Alunos");
-        MenuItem mnuFilmeItem = new MenuItem("Filmes");
+        MenuItem mnuTurmaItem = new MenuItem("Turmas");
+        MenuItem mnuPresencaItem = new MenuItem("Presenças");
 
         menuBar.getMenus().addAll( mnuArquivo, mnuCadastro, mnuAjuda);
 
-        mnuCadastro.getItems().addAll( mnuAlunoItem, mnuFilmeItem );
+        mnuCadastro.getItems().addAll( mnuAlunoItem, mnuTurmaItem, mnuPresencaItem );
 
         pane.setTop( menuBar );
 
 
         mnuAlunoItem.setOnAction( e -> pane.setCenter( alunoPane ) );
+        mnuTurmaItem.setOnAction( e -> pane.setCenter( turmaPane ) );
+        mnuPresencaItem.setOnAction( e -> pane.setCenter( presencaPane ) );
 
         stage.setScene(scn);
         stage.setTitle("Presença Esportiva");

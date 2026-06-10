@@ -23,16 +23,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
-public class TurmaBoundary extends Application {
+public class TurmaBoundary implements Tela {
 
     // Criando um stage para configuração da tela
 
     @Override
-    public void start(Stage telaTurma) {
+    public Pane render() {
 
         TurmaControl control = new TurmaControl();
 
@@ -40,9 +38,6 @@ public class TurmaBoundary extends Application {
         BorderPane borderPane = new BorderPane(); // Criando um BorderPane
         GridPane gridPane = new GridPane(10, 10);
         gridPane.setAlignment(Pos.CENTER);
-
-        Scene scn = new Scene(borderPane, 800, 600);
-        telaTurma.setScene(scn);
 
         borderPane.setTop(gridPane); // Colocando o gridPane na parte do topo do borderPane
 
@@ -185,9 +180,7 @@ public class TurmaBoundary extends Application {
         colAcao.setCellFactory(cellFactory);
         //return borderPane; //pq retorna isso ?
         // Colocando o titulo na tela
-        telaTurma.setTitle("Turma");
-        telaTurma.show(); // Inicializa a telaTurma
-
+        return borderPane;
     } // chave que fecha a classe principal
 
 }
