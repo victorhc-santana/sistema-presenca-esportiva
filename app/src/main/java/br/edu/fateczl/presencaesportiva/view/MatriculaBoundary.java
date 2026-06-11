@@ -51,12 +51,10 @@ public class MatriculaBoundary implements Tela {
         btnSalvar.setOnAction(e -> {
             try {
                 control.salvarPorNome(txtAluno.getText(), txtTurma.getText(), dtaMatricula.getValue());
-                tabela.refresh();
                 new Alert(AlertType.INFORMATION, "Matricula registrada com sucesso").show();
             } catch (Exception ex) {
                 new Alert(AlertType.ERROR, ex.getMessage()).show();
             }
-            tabela.refresh();
         });
         //Criando o botão Pesquisar
         Button btnPesquisar = new Button("Pesquisar");

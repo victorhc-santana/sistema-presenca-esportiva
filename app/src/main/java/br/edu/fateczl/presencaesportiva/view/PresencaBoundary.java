@@ -64,7 +64,6 @@ public class PresencaBoundary implements Tela {
         btnSalvar.setOnAction(e -> {
             control.salvarTodos();
             new Alert(Alert.AlertType.INFORMATION, "Presenças salvas!").show();
-            tabela.refresh();
         });
 
         Bindings.bindBidirectional(dtaPresenca.valueProperty(), control.diaProperty());

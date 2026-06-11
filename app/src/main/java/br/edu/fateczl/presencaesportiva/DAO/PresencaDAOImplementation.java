@@ -92,7 +92,7 @@ public class PresencaDAOImplementation implements PresencaDAO {
                 JOIN matricula m ON p.matricula_id = m.id
                 JOIN aluno a ON m.aluno_id = a.id
                 JOIN turma t ON m.turma_id = t.id
-                WHERE p.matricula_id = ? AND p.dia = ?
+                WHERE m.id = ? AND p.dia = ?
                 """;
             var stmt = con.prepareStatement(sql);
             stmt.setLong(1, matriculaId);
