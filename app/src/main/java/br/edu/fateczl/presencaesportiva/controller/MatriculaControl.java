@@ -69,15 +69,13 @@ public class MatriculaControl {
 
     private void carregar() {
         matriculas.clear();
-        matriculas.addAll(
-                dao.pesquisarPorAluno(alunoProperty().get().getNome()));
+        matriculas.addAll(dao.pesquisarPorAluno("")); // string vazia retorna todos pelo LIKE %%
     }
 
-    private void pesquisar() {
+    public void pesquisar(String nomeAluno) {
         matriculas.clear();
-        matriculas.addAll(
-                dao.pesquisarPorAluno(alunoProperty().getName()));
-    }
+        matriculas.addAll(dao.pesquisarPorAluno(nomeAluno));
+    }   
 
     public void excluir(int indice) {
         Matricula a = matriculas.get(indice);

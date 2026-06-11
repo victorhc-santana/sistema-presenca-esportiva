@@ -141,9 +141,57 @@ public List<Matricula> pesquisarPorAluno(String nomeAluno) {
 
     @Override
     public List<Matricula> pesquisarPorTurma(String nomeTurma) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pesquisarPorTurma'");
-    }   
+    List<Matricula> matriculas = new ArrayList<>();
+    try {
+        String sql = """
+            SELECT m.id, m.data_matricula,
+                   a.id AS aluno_id, a.nome, a.cpf, a.email, a.telefone, a.nascimento, a.endereco, a.modalidade,
+                   t.id AS turma_id, t.nome AS turma_nome, t.modalidade AS turma_modalidade,
+                   t.professor, t.horario, t.dia_semana, t.vagas_total, t.nivel
+            FROM matricula m
+            JOIN aluno a ON m.aluno_id = a.id
+            JOIN turma t ON m.turma_id = t.id
+            WHERE t.nome LIKE ?
+            """;
+        var stmt = con.prepareStatement(sql);
+        stmt.setString(1, "%" + nomeTurma + "%");
+        var rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Aluno aluno = new Aluno();
+            aluno.setId(rs.getLong("aluno_id"));
+            aluno.setNome(rs.getString("nome"));
+            aluno.setCpf(rs.getString("cpf"));
+            aluno.setEmail(rs.getString("email"));
+            aluno.setTelefone(rs.getString("telefone"));
+            aluno.setDataNascimento(rs.getObject("nascimento", LocalDate.class));
+            aluno.setEndereco(rs.getString("endereco"));
+            aluno.setModalidade(rs.getString("modalidade"));
+
+            Turma turma = new Turma();
+            turma.setId(rs.getInt("turma_id"));
+            turma.setNome(rs.getString("turma_nome"));
+            turma.setModalidade(rs.getString("turma_modalidade"));
+            turma.setProfessor(rs.getString("professor"));
+            turma.setHorario(rs.getString("horario"));
+            turma.setDiaSemana(rs.getString("dia_semana"));
+            turma.setVagasTotal(rs.getInt("vagas_total"));
+            turma.setNivel(rs.getString("nivel"));
+
+            Matricula matricula = new Matricula();
+            matricula.setId(rs.getLong("id"));
+            matricula.setAluno(aluno);
+            matricula.setTurma(turma);
+            matricula.setDataMatricula(rs.getObject("data_matricula", LocalDate.class));
+
+            matriculas.add(matricula);
+        }
+    } catch (SQLException e) {
+        System.out.println("Erro ao pesquisar matricula por turma");
+        e.printStackTrace();
+    }
+    return matriculas;
+}   
 }
 
 

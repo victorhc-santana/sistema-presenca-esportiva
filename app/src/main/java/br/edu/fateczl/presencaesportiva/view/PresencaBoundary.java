@@ -57,13 +57,13 @@ public class PresencaBoundary implements Tela {
         }
         control.carregarPorTurmaEDia(nomeTurma, dia);
         tabela.refresh();
-    });
+        });
 
         Button btnSalvar = new Button("Salvar");
         btnSalvar.setOnAction(e -> {
         control.salvarTodos();
         new Alert(Alert.AlertType.INFORMATION, "Presenças salvas!").show();
-    });
+        });
 
         gridPane.add(new Label("Data da Presença:"), 0, 0);
         gridPane.add(dtaPresenca, 1, 0);

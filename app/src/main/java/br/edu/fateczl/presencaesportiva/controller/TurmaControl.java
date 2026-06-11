@@ -52,7 +52,7 @@ public class TurmaControl {
         professor.set("");
         horario.set("");
         diaSemana.set("");
-        vagasTotal.set(0);
+        vagasTotal.set((Integer) 0);
         nivel.set("");
     }
 

@@ -54,9 +54,17 @@ public class MatriculaBoundary implements Tela {
         //Criando o botão Pesquisar
         Button btnPesquisar = new Button("Pesquisar");
         btnPesquisar.setOnAction(e -> {
-            //control.pesquisar();
+            control.pesquisar(txtAluno.getText());
             tabela.refresh();
         });
+
+        Button btnLimparCampos = new Button();
+        Image iconNew = new Image(getClass().getResourceAsStream("/images/apagar.png"));
+        ImageView imgViewNew = new ImageView( iconNew );
+        imgViewNew.setFitWidth(16);
+        imgViewNew.setFitHeight(16);
+        btnLimparCampos.setGraphic( imgViewNew );
+        btnLimparCampos.setOnAction( e -> control.limparCampos());
 
         Label lblAluno = new Label("Aluno:");
         Label lblTurma = new Label("Turma:");
@@ -71,6 +79,7 @@ public class MatriculaBoundary implements Tela {
         gridPane.add(txtDataMatricula, 1, 2);
         gridPane.add(btnSalvar,0,3);
         gridPane.add(btnPesquisar,2,0);
+        gridPane.add(btnLimparCampos,3,0);
     
         TableColumn<Matricula, Long> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(itemData -> new ReadOnlyObjectWrapper<>(itemData.getValue().getId()));

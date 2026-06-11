@@ -16,7 +16,7 @@ public class Presenca {
     }
 
     public Presenca() {
-        //TODO Auto-generated constructor stub
+        super();
     }
 
     public long getId() {
