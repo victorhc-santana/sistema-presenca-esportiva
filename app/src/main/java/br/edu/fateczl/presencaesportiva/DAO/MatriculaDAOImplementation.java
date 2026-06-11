@@ -38,7 +38,7 @@ public class MatriculaDAOImplementation implements MatriculaDAO {
     @Override
     public void cadastrar(Matricula a) {
         try {
-            String sql = "INSERT INTO matricula (aluno, turma, data_matricula) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO matricula (aluno_id, turma_id, data_matricula) VALUES (?, ?, ?)";
             var stmt = con.prepareStatement(sql);
             stmt.setLong(1, a.getId());
             stmt.setString(2, a.getAluno().getNome());

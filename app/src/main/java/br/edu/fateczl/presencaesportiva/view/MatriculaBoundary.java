@@ -49,10 +49,13 @@ public class MatriculaBoundary implements Tela {
         //Criando o botão Salvar
         Button btnSalvar = new Button("Salvar");
         btnSalvar.setOnAction(e -> {
-            //control.salvar();
-            tabela.refresh();
-            new Alert(AlertType.INFORMATION, "Matricula registrada com sucesso").show();
-            tabela.refresh();
+            try {
+                control.salvarPorNome(txtAluno.getText(), txtTurma.getText(), dtaMatricula.getValue());
+                tabela.refresh();
+                new Alert(AlertType.INFORMATION, "Matricula registrada com sucesso").show();
+            } catch (Exception ex) {
+                new Alert(AlertType.ERROR, ex.getMessage()).show();
+            }
         });
         //Criando o botão Pesquisar
         Button btnPesquisar = new Button("Pesquisar");
@@ -74,6 +77,8 @@ public class MatriculaBoundary implements Tela {
         Label lblDataMatricula = new Label("Data matricula:");
 
         Bindings.bindBidirectional(dtaMatricula.valueProperty(), control.dataMatriculaProperty());
+        Bindings.bindBidirectional(txtAluno.textProperty(), control.nomeAlunoProperty());
+        Bindings.bindBidirectional(txtTurma.textProperty(), control.nomeTurmaProperty());
 
         // Posicionando no gridPane todos os textFields e botões
         gridPane.add(lblAluno, 0, 0);
