@@ -92,16 +92,24 @@ public class MatriculaBoundary implements Tela {
         gridPane.add(btnLimparCampos,3,0);
     
         TableColumn<Matricula, Long> colId = new TableColumn<>("ID");
-        colId.setCellValueFactory(itemData -> new ReadOnlyObjectWrapper<>(itemData.getValue().getId()));
+        colId.setCellValueFactory(itemData ->
+            new ReadOnlyObjectWrapper<>(itemData.getValue().getId()));
+
         // Aluno
         TableColumn<Matricula, String> colAluno = new TableColumn<>("Aluno");
-        colAluno.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData.getValue().getAluno().getNome()));
+        colAluno.setCellValueFactory(itemData ->
+            new ReadOnlyStringWrapper(itemData.getValue().getAluno().getNome()));
+            
         // Turma
         TableColumn<Matricula, String> colTurma = new TableColumn<>("Turma");
-        colTurma.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData.getValue().getTurma().getNome()));
+        colTurma.setCellValueFactory(itemData ->
+            new ReadOnlyStringWrapper(itemData.getValue().getTurma().getNome()));
+
         // Data Matricula
         TableColumn<Matricula, String> colDataMatricula = new TableColumn<>("Data matricula");
-        colDataMatricula.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData.getValue().getDataMatricula().format(dtf)));
+        colDataMatricula.setCellValueFactory(itemData ->
+            new ReadOnlyStringWrapper(itemData.getValue().getDataMatricula().format(dtf)));
+
         //Ações que podem ser feitas para cada linha da tabela
         TableColumn<Matricula, Void> colAcao = new TableColumn<>("Ações");
 

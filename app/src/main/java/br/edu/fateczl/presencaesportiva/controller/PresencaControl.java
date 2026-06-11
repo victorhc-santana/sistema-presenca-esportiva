@@ -45,6 +45,7 @@ public class PresencaControl {
         id.set(0);
         matricula.set(null);
         dia.set(LocalDate.now());
+        
         status.set(false);
     }
 

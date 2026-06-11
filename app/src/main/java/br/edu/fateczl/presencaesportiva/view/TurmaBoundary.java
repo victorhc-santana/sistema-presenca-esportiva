@@ -78,7 +78,6 @@ public class TurmaBoundary implements Tela {
         imgViewNew.setFitHeight(16);
         Button btnLimpar = new Button();
         btnLimpar.setGraphic(imgViewNew);
-        btnLimpar.setOnAction(e -> control.limparCampos());
 
         Bindings.bindBidirectional(txtNome.textProperty(), control.nomeProperty());
         Bindings.bindBidirectional(txtModalidade.textProperty(), control.modalidadeProperty());
@@ -88,6 +87,8 @@ public class TurmaBoundary implements Tela {
         Bindings.bindBidirectional(txtvagasTotal.textProperty(), control.vagasTotalProperty(),
                 new NumberStringConverter());
         Bindings.bindBidirectional(txtNivel.textProperty(), control.nivelProperty());
+
+        btnLimpar.setOnAction(e -> control.limparCampos());
 
         Label lblNome = new Label("Nome turma:");
         Label lblModalidade = new Label("Modalidade:");
@@ -112,9 +113,9 @@ public class TurmaBoundary implements Tela {
         gridPane.add(txtvagasTotal, 3, 2);
         gridPane.add(lblNivel, 2, 3);
         gridPane.add(txtNivel, 3, 3);
-        gridPane.add(btnPesquisar, 3, 0);
+        gridPane.add(btnPesquisar, 2, 0);
         gridPane.add(btnSalvar, 0, 4);
-        gridPane.add(btnLimpar,1,4);
+        gridPane.add(btnLimpar,3,0);
 
         // Criando as colunas da tableview
 
@@ -159,7 +160,7 @@ public class TurmaBoundary implements Tela {
             @Override
             public TableCell<Turma, Void> call(final TableColumn<Turma, Void> param) {
                 return new TableCell<>() {
-                    Button btnExcluir = new Button("Excluir");
+                    Button btnExcluir = new Button();
                     {
                         Image icondelete = new Image(getClass().getResourceAsStream("/images/exclusao.png"));
                         ImageView iconView = new ImageView(icondelete);

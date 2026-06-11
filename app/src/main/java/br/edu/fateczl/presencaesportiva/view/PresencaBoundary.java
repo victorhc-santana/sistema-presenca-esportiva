@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import br.edu.fateczl.presencaesportiva.controller.PresencaControl;
 import br.edu.fateczl.presencaesportiva.model.Presenca;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -46,7 +48,10 @@ public class PresencaBoundary implements Tela {
         imgViewNew.setFitWidth(16);
         imgViewNew.setFitHeight(16);
         btnLimparCampos.setGraphic( imgViewNew );
-        btnLimparCampos.setOnAction( e -> control.limparCampos());
+        btnLimparCampos.setOnAction( e -> {
+            txtTurma.clear();
+            control.limparCampos();
+        });
 
         Button btnPesquisar = new Button("Pesquisar");
         btnPesquisar.setOnAction(e -> {
@@ -91,7 +96,7 @@ public class PresencaBoundary implements Tela {
                 }
 
             @Override
-            protected void updateItem(Boolean item, boolean empty) {
+            public void updateItem(Boolean item, boolean empty) {
                 super.updateItem(item, empty); // obrigatório chamar o super
                 if (empty || item == null) {
                     setGraphic(null);
@@ -106,24 +111,39 @@ public class PresencaBoundary implements Tela {
 
         //Criando as colunas
         TableColumn<Presenca, Long> colId = new TableColumn<>("ID");
-        colId.setCellValueFactory(itemData ->
-             new javafx.beans.property.SimpleLongProperty(itemData.getValue().getId()).asObject());
+        colId.setCellValueFactory(itemData -> {
+            if (itemData.getValue() == null) 
+                return new ReadOnlyObjectWrapper<>(0L);
+            return new ReadOnlyObjectWrapper<>(itemData.getValue().getId());
+        });
 
         TableColumn<Presenca, String> colAluno = new TableColumn<>("Aluno");
-        colAluno.setCellValueFactory(itemData ->
-             new javafx.beans.property.SimpleStringProperty(itemData.getValue().getMatricula().getAluno().getNome()));
+        colAluno.setCellValueFactory(itemData -> {
+            if (itemData.getValue() == null || itemData.getValue().getMatricula() == null)
+                return new ReadOnlyStringWrapper("");
+            return new ReadOnlyStringWrapper(itemData.getValue().getMatricula().getAluno().getNome());
+        });
 
         TableColumn<Presenca, String> colTurma = new TableColumn<>("Turma");
-        colTurma.setCellValueFactory(itemData ->
-             new javafx.beans.property.SimpleStringProperty(itemData.getValue().getMatricula().getTurma().getNome()));
+        colTurma.setCellValueFactory(itemData -> {
+            if (itemData.getValue() == null || itemData.getValue().getMatricula() == null)
+                return new ReadOnlyStringWrapper("");
+            return new ReadOnlyStringWrapper(itemData.getValue().getMatricula().getTurma().getNome());
+        });
 
         TableColumn<Presenca, String> colData = new TableColumn<>("Data");
-        colData.setCellValueFactory(itemData ->
-             new javafx.beans.property.SimpleStringProperty(itemData.getValue().getDia().format(dtf)));
+        colData.setCellValueFactory(itemData -> {
+            if (itemData.getValue() == null || itemData.getValue().getDia() == null)
+                return new ReadOnlyStringWrapper("");
+            return new ReadOnlyStringWrapper(itemData.getValue().getDia().format(dtf));
+        });
 
         TableColumn<Presenca, Boolean> colStatus = new TableColumn<>("Presente");
-        colStatus.setCellValueFactory(itemData ->
-            new javafx.beans.property.SimpleBooleanProperty(itemData.getValue().getStatus()).asObject());
+        colStatus.setCellValueFactory(itemData -> {
+            if (itemData.getValue() == null)
+                return new ReadOnlyObjectWrapper<>(false);
+            return new ReadOnlyObjectWrapper<>(itemData.getValue().getStatus());
+        });
         colStatus.setCellFactory(cellFactory);
 
         //Adicionando as colunas na tabela
@@ -133,8 +153,6 @@ public class PresencaBoundary implements Tela {
 
         tabela.getColumns().addAll(colId, colAluno, colTurma, colData, colStatus);
         tabela.setItems(control.getLista());
-
-
         return borderPane;
     }
 

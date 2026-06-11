@@ -96,7 +96,7 @@ public class AlunoBoundary implements Tela {
         gridPane.add(txtModalidade, 3, 3);
         gridPane.add(btnSalvar, 0, 4);
         gridPane.add(btnPesquisar, 2, 0);
-        gridPane.add(btnApagar, 4,0);
+        gridPane.add(btnApagar, 3,0);
 
         //Criando as colunas
         TableColumn<Aluno, Long> colId = new TableColumn<>("ID");

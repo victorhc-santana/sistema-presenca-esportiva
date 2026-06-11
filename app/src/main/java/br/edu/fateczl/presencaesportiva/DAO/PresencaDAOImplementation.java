@@ -132,6 +132,7 @@ public class PresencaDAOImplementation implements PresencaDAO {
                 presenca.setStatus(rs.getBoolean("status"));
 
                 presencas.add(presenca);
+                return presenca;
             }
         } catch (SQLException e) {
             e.printStackTrace();
