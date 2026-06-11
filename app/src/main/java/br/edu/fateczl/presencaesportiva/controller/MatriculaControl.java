@@ -21,7 +21,7 @@ public class MatriculaControl {
     private LongProperty id = new SimpleLongProperty(0);
     private ObjectProperty<Aluno> aluno = new SimpleObjectProperty<>(null);
     private ObjectProperty<Turma> turma = new SimpleObjectProperty<>(null);
-    private ObjectProperty<LocalDate> dataMatricula = new SimpleObjectProperty<>(null);
+    private ObjectProperty<LocalDate> dataMatricula = new SimpleObjectProperty<>(LocalDate.now());
 
     public ObservableList<Matricula> getLista() {
         return matriculas;

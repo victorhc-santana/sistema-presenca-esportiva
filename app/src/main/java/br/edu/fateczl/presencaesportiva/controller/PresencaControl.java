@@ -116,6 +116,9 @@ public class PresencaControl {
     public LongProperty idProperty() {
         return id;
     }
+    public ObjectProperty<Matricula> matriculaProperty(){
+        return matricula;
+    }
     public ObjectProperty<LocalDate> diaProperty() {
         return dia;
     }

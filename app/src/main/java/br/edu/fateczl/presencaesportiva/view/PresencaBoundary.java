@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import br.edu.fateczl.presencaesportiva.controller.PresencaControl;
 import br.edu.fateczl.presencaesportiva.model.Presenca;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -61,9 +62,12 @@ public class PresencaBoundary implements Tela {
 
         Button btnSalvar = new Button("Salvar");
         btnSalvar.setOnAction(e -> {
-        control.salvarTodos();
-        new Alert(Alert.AlertType.INFORMATION, "Presenças salvas!").show();
+            control.salvarTodos();
+            new Alert(Alert.AlertType.INFORMATION, "Presenças salvas!").show();
+            tabela.refresh();
         });
+
+        Bindings.bindBidirectional(dtaPresenca.valueProperty(), control.diaProperty());
 
         gridPane.add(new Label("Data da Presença:"), 0, 0);
         gridPane.add(dtaPresenca, 1, 0);

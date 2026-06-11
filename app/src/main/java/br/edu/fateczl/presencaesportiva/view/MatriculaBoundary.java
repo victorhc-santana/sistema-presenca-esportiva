@@ -3,6 +3,7 @@ package br.edu.fateczl.presencaesportiva.view;
 import javafx.scene.control.TableCell;
 import br.edu.fateczl.presencaesportiva.controller.MatriculaControl;
 import br.edu.fateczl.presencaesportiva.model.Matricula;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.geometry.Pos;
@@ -11,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
@@ -39,7 +41,7 @@ public class MatriculaBoundary implements Tela {
 
         TextField txtAluno = new TextField();
         TextField txtTurma = new TextField();
-        TextField txtDataMatricula = new TextField();
+        DatePicker dtaMatricula = new DatePicker();
 
         TableView<Matricula> tabela = new TableView<>();
         borderPane.setCenter(tabela);
@@ -50,6 +52,7 @@ public class MatriculaBoundary implements Tela {
             //control.salvar();
             tabela.refresh();
             new Alert(AlertType.INFORMATION, "Matricula registrada com sucesso").show();
+            tabela.refresh();
         });
         //Criando o botão Pesquisar
         Button btnPesquisar = new Button("Pesquisar");
@@ -70,13 +73,15 @@ public class MatriculaBoundary implements Tela {
         Label lblTurma = new Label("Turma:");
         Label lblDataMatricula = new Label("Data matricula:");
 
+        Bindings.bindBidirectional(dtaMatricula.valueProperty(), control.dataMatriculaProperty());
+
         // Posicionando no gridPane todos os textFields e botões
         gridPane.add(lblAluno, 0, 0);
         gridPane.add(txtAluno, 1, 0);
         gridPane.add(lblTurma, 0, 1);
         gridPane.add(txtTurma, 1, 1);
         gridPane.add(lblDataMatricula, 0, 2);
-        gridPane.add(txtDataMatricula, 1, 2);
+        gridPane.add(dtaMatricula, 1, 2);
         gridPane.add(btnSalvar,0,3);
         gridPane.add(btnPesquisar,2,0);
         gridPane.add(btnLimparCampos,3,0);
