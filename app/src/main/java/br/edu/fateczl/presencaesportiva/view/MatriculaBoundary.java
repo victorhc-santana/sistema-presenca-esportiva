@@ -56,6 +56,7 @@ public class MatriculaBoundary implements Tela {
             } catch (Exception ex) {
                 new Alert(AlertType.ERROR, ex.getMessage()).show();
             }
+            tabela.refresh();
         });
         //Criando o botão Pesquisar
         Button btnPesquisar = new Button("Pesquisar");

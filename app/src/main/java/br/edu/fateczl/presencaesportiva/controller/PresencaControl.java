@@ -84,21 +84,21 @@ public class PresencaControl {
         carregar();
     }
 
-        public void carregarPorTurmaEDia(String nomeTurma, LocalDate dia) {
-        lista.clear();
-        // busca matrículas da turma no MatriculaDAO
-        MatriculaDAO matriculaDAO = new MatriculaDAOImplementation();
-        List<Matricula> matriculas = matriculaDAO.pesquisarPorTurma(nomeTurma);
+    public void carregarPorTurmaEDia(String nomeTurma, LocalDate dia) {
+    lista.clear();
+    // busca matrículas da turma no MatriculaDAO
+    MatriculaDAO matriculaDAO = new MatriculaDAOImplementation();
+    List<Matricula> matriculas = matriculaDAO.pesquisarPorTurma(nomeTurma);
 
-        // para cada matrícula, verifica se já existe presença naquele dia
-        // se sim, carrega; se não, cria com status false
-        for (Matricula m : matriculas) {
-            Presenca p = dao.buscarPorMatriculaEDia(m.getId(), dia);
-            if (p == null) {
-                p = new Presenca(0, m, dia, false); // novo, ainda não salvo
-            }
-            lista.add(p);
+    // para cada matrícula, verifica se já existe presença naquele dia
+    // se sim, carrega; se não, cria com status false
+    for (Matricula m : matriculas) {
+        Presenca p = dao.buscarPorMatriculaEDia(m.getId(), dia);
+        if (p == null) {
+            p = new Presenca(0, m, dia, false); // novo, ainda não salvo
         }
+        lista.add(p);
+    }
     }
 
     public void salvarTodos() {

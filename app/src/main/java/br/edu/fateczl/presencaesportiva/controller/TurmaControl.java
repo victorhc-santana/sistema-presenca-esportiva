@@ -6,8 +6,10 @@ import br.edu.fateczl.presencaesportiva.DAO.turmaDAO;
 import br.edu.fateczl.presencaesportiva.DAO.turmaDAOImplementation;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,7 +19,7 @@ public class TurmaControl {
     private turmaDAO dao = new turmaDAOImplementation();
 
     // Preciso ver o que está errado nesse passo tipo Integer
-    private IntegerProperty id = new SimpleIntegerProperty(0);
+    private LongProperty id = new SimpleLongProperty(0);
     private StringProperty nome = new SimpleStringProperty("");
     private StringProperty modalidade = new SimpleStringProperty("");
     private StringProperty professor = new SimpleStringProperty("");
@@ -102,7 +104,7 @@ public class TurmaControl {
         carregar();
     }
 
-    public IntegerProperty idProperty() {
+    public LongProperty idProperty() {
         return id;
     }
 

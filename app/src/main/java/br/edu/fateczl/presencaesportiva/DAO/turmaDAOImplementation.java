@@ -67,7 +67,7 @@ public class turmaDAOImplementation implements turmaDAO {
     }
 
     @Override
-    public void atualizar(int id, Turma a) {
+    public void atualizar(long id, Turma a) {
         try {
             String sql = "UPDATE turma SET nome=?, modalidade=?, professor=?, horario=?, " +
                     "dia_semana=?, vagas_total=?, nivel=? WHERE id=?";
@@ -79,7 +79,7 @@ public class turmaDAOImplementation implements turmaDAO {
             stm.setString(5, a.getDiaSemana());
             stm.setInt(6, a.getVagasTotal());
             stm.setString(7, a.getNivel());
-            stm.setInt(8, id);
+            stm.setLong(8, id);
             stm.executeUpdate();
             System.out.println("Turma atualizada com sucesso");
         } catch (SQLException e) {

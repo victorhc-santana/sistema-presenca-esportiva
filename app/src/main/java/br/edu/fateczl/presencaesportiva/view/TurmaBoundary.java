@@ -119,7 +119,7 @@ public class TurmaBoundary implements Tela {
         // Criando as colunas da tableview
 
         // ID
-        TableColumn<Turma, Integer> colId = new TableColumn<>("ID");
+        TableColumn<Turma, Long> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(itemData -> new ReadOnlyObjectWrapper<>(itemData.getValue().getId()));
         // Nome
         TableColumn<Turma, String> colNome = new TableColumn<>("Nome");

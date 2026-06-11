@@ -40,10 +40,9 @@ public class MatriculaDAOImplementation implements MatriculaDAO {
         try {
             String sql = "INSERT INTO matricula (aluno_id, turma_id, data_matricula) VALUES (?, ?, ?)";
             var stmt = con.prepareStatement(sql);
-            stmt.setLong(1, a.getId());
-            stmt.setString(2, a.getAluno().getNome());
-            stmt.setString(3, a.getTurma().getNome());
-            stmt.setDate(4, java.sql.Date.valueOf(a.getDataMatricula()));
+            stmt.setLong(1, a.getAluno().getId());
+            stmt.setLong(2, a.getTurma().getId());
+            stmt.setDate(3, java.sql.Date.valueOf(a.getDataMatricula()));
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar matricula");
@@ -68,11 +67,11 @@ public class MatriculaDAOImplementation implements MatriculaDAO {
     @Override
     public void atualizar(long id, Matricula f) {
         try {
-            String sql = "UPDATE matricula SET aluno=?, turma=?, data_matricula=? " +
+            String sql = "UPDATE matricula SET aluno_id =?, turma_id =?, data_matricula=? " +
              "WHERE id=?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, f.getAluno().getNome());
-            stm.setString(2, f.getTurma().getNome());
+            stm.setLong(1, f.getAluno().getId());
+            stm.setLong(2, f.getTurma().getId());
             stm.setDate(3, java.sql.Date.valueOf(f.getDataMatricula()));
             stm.setLong(4, id);
             stm.executeUpdate();

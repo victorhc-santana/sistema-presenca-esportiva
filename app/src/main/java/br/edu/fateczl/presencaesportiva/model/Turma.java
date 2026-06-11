@@ -6,7 +6,7 @@ public class Turma {
 
     //Variáveis de instância
 
-    private int id;
+    private long id;
     private String nome;
     private String modalidade;
     private String professor;
@@ -21,7 +21,7 @@ public class Turma {
         super();
     }
 
-    public Turma(int id, String nome, String modalidade, String professor, String horario, String diaSemana, int vagasTotal, String nivel){
+    public Turma(long id, String nome, String modalidade, String professor, String horario, String diaSemana, int vagasTotal, String nivel){
 
         this.id = id;
         this.nome = nome;
@@ -36,11 +36,11 @@ public class Turma {
 
     //Getters e Setters para a entidade Turma
 
-    public int getId(){
+    public long getId(){
         return id;
     }
 
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
 
