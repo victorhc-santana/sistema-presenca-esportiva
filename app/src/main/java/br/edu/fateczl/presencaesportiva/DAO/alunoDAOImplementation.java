@@ -56,6 +56,16 @@ public class AlunoDAOImplementation implements AlunoDAO{
     @Override
     public void apagar(Aluno a) {
         try {
+            String sqlPresenca = "DELETE FROM presenca WHERE matricula_id IN (SELECT id FROM matricula WHERE aluno_id = ?)";
+            var stmtPresenca = con.prepareStatement(sqlPresenca);
+            stmtPresenca.setLong(1, a.getId());
+            stmtPresenca.executeUpdate();
+
+            String sqlMatricula = "DELETE FROM matricula WHERE aluno_id = ?";
+            var stmtMatricula = con.prepareStatement(sqlMatricula);
+            stmtMatricula.setLong(1, a.getId());
+            stmtMatricula.executeUpdate();
+            
             String sql = "DELETE FROM aluno WHERE id = ?";
             var stmt = con.prepareStatement(sql);
             stmt.setLong(1, a.getId());

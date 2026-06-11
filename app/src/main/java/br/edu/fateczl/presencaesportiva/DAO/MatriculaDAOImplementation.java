@@ -53,6 +53,11 @@ public class MatriculaDAOImplementation implements MatriculaDAO {
     @Override
     public void apagar(Matricula f) {
         try {
+            String sqlPresenca = "DELETE FROM presenca WHERE matricula_id = ?";
+            var stmtPresenca = con.prepareStatement(sqlPresenca);
+            stmtPresenca.setLong(1, f.getId());;
+            stmtPresenca.executeUpdate();
+            
             String sql = "DELETE FROM matricula WHERE id = ?";
             var stmt = con.prepareStatement(sql);
             stmt.setLong(1, f.getId());
