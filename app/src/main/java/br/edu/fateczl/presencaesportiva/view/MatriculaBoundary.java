@@ -70,7 +70,7 @@ public class MatriculaBoundary implements Tela {
         gridPane.add(lblDataMatricula, 0, 2);
         gridPane.add(txtDataMatricula, 1, 2);
         gridPane.add(btnSalvar,0,3);
-        gridPane.add(btnPesquisar,2,2);
+        gridPane.add(btnPesquisar,2,0);
     
         TableColumn<Matricula, Long> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(itemData -> new ReadOnlyObjectWrapper<>(itemData.getValue().getId()));

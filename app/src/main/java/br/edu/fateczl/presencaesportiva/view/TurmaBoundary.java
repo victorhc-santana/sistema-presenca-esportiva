@@ -9,6 +9,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.util.Callback;
+import javafx.util.converter.NumberStringConverter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -69,13 +70,23 @@ public class TurmaBoundary implements Tela {
             tabela.refresh();
         });
 
+
+        Image iconNew = new
+        Image(getClass().getResourceAsStream("/images/apagar.png"));
+        ImageView imgViewNew = new ImageView(iconNew);
+        imgViewNew.setFitWidth(16);
+        imgViewNew.setFitHeight(16);
+        Button btnLimpar = new Button();
+        btnLimpar.setGraphic(imgViewNew);
+        btnLimpar.setOnAction(e -> control.limparCampos());
+
         Bindings.bindBidirectional(txtNome.textProperty(), control.nomeProperty());
         Bindings.bindBidirectional(txtModalidade.textProperty(), control.modalidadeProperty());
         Bindings.bindBidirectional(txtProfessor.textProperty(), control.professorProperty());
         Bindings.bindBidirectional(txtHorario.textProperty(), control.horarioProperty());
         Bindings.bindBidirectional(txtdiaSemana.textProperty(), control.diaSemanaProperty());
-        // Bindings.bindBidirectional(txtvagasTotal.IntegerProperty(),
-        // control.vagasTotalProperty());
+        Bindings.bindBidirectional(txtvagasTotal.textProperty(), control.vagasTotalProperty(),
+                new NumberStringConverter());
         Bindings.bindBidirectional(txtNivel.textProperty(), control.nivelProperty());
 
         Label lblNome = new Label("Nome turma:");
@@ -103,6 +114,7 @@ public class TurmaBoundary implements Tela {
         gridPane.add(txtNivel, 3, 3);
         gridPane.add(btnPesquisar, 3, 0);
         gridPane.add(btnSalvar, 0, 4);
+        gridPane.add(btnLimpar,1,4);
 
         // Criando as colunas da tableview
 
@@ -179,6 +191,6 @@ public class TurmaBoundary implements Tela {
         };
         colAcao.setCellFactory(cellFactory);
         return borderPane;
-    } 
+    }
 
 }
