@@ -1,7 +1,10 @@
 package br.edu.fateczl.presencaesportiva.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import br.edu.fateczl.presencaesportiva.DAO.MatriculaDAO;
+import br.edu.fateczl.presencaesportiva.DAO.MatriculaDAOImplementation;
 import br.edu.fateczl.presencaesportiva.DAO.PresencaDAO;
 import br.edu.fateczl.presencaesportiva.DAO.PresencaDAOImplementation;
 import br.edu.fateczl.presencaesportiva.model.Matricula;
@@ -66,18 +69,46 @@ public class PresencaControl {
     private void carregar() {
         lista.clear();
         lista.addAll(
-            dao.pesquisarPorDia("", LocalDate.now()));
+            dao.buscarPorMatriculaEDia(0, LocalDate.now()));
     }
 
     public void pesquisar(String modalidade, LocalDate dia) {
         lista.clear();
         lista.addAll(
-            dao.pesquisarPorDia(modalidade, dia));
+            dao.buscarPorMatriculaEDia(0, LocalDate.now()));
     }
 
     public void excluir(int indice) {
         Presenca p = lista.get(indice);
         dao.apagar(p);
+        carregar();
+    }
+
+        public void carregarPorTurmaEDia(String nomeTurma, LocalDate dia) {
+        lista.clear();
+        // busca matrículas da turma no MatriculaDAO
+        MatriculaDAO matriculaDAO = new MatriculaDAOImplementation();
+        List<Matricula> matriculas = matriculaDAO.pesquisarPorTurma(nomeTurma);
+
+        // para cada matrícula, verifica se já existe presença naquele dia
+        // se sim, carrega; se não, cria com status false
+        for (Matricula m : matriculas) {
+            Presenca p = dao.buscarPorMatriculaEDia(m.getId(), dia);
+            if (p == null) {
+                p = new Presenca(0, m, dia, false); // novo, ainda não salvo
+            }
+            lista.add(p);
+        }
+    }
+
+    public void salvarTodos() {
+        for (Presenca p : lista) {
+            if (p.getId() == 0) {
+                dao.cadastrar(p);  // novo
+            } else {
+                dao.atualizar(p.getId(), p); // atualiza existente
+            }
+        }
         carregar();
     }
 

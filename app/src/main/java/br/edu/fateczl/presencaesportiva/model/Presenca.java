@@ -10,7 +10,7 @@ public class Presenca {
 
     public Presenca(long id, Matricula matricula, LocalDate dia, boolean status) {
         this.id = id;
-
+        this.matricula = matricula;
         this.dia = dia;
         this.status = status;
     }

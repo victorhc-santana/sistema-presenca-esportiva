@@ -137,6 +137,12 @@ public List<Matricula> pesquisarPorAluno(String nomeAluno) {
         e.printStackTrace();
     }
     return matriculas;
+    }
+
+    @Override
+    public List<Matricula> pesquisarPorTurma(String nomeTurma) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pesquisarPorTurma'");
     }   
 }
 

@@ -64,6 +64,13 @@ public class AlunoBoundary implements Tela {
             control.pesquisar();
             tabela.refresh();
         });
+        Image iconNew = new Image(getClass().getResourceAsStream("/images/apagar.png"));
+        ImageView imgViewNew = new ImageView( iconNew );
+        imgViewNew.setFitWidth(16);
+        imgViewNew.setFitHeight(16);
+        Button btnApagar = new Button();
+        btnApagar.setGraphic( imgViewNew );
+        btnApagar.setOnAction( e -> control.limparCampos());
         
         Bindings.bindBidirectional(txtNome.textProperty(), control.nomeProperty());
         Bindings.bindBidirectional(txtCpf.textProperty(), control.cpfProperty());
@@ -89,6 +96,7 @@ public class AlunoBoundary implements Tela {
         gridPane.add(txtModalidade, 3, 3);
         gridPane.add(btnSalvar, 0, 4);
         gridPane.add(btnPesquisar, 2, 0);
+        gridPane.add(btnApagar, 4,0);
 
         //Criando as colunas
         TableColumn<Aluno, Long> colId = new TableColumn<>("ID");

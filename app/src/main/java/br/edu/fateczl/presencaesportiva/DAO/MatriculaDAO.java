@@ -9,5 +9,6 @@ public interface MatriculaDAO {
     void apagar(Matricula f);
     void atualizar(long id, Matricula f);
     List<Matricula> pesquisarPorAluno (String nomeAluno);
+    List<Matricula> pesquisarPorTurma(String nomeTurma);
       
 }
