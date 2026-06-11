@@ -70,7 +70,11 @@ public class MatriculaBoundary implements Tela {
         imgViewNew.setFitWidth(16);
         imgViewNew.setFitHeight(16);
         btnLimparCampos.setGraphic( imgViewNew );
-        btnLimparCampos.setOnAction( e -> control.limparCampos());
+        btnLimparCampos.setOnAction( e -> {
+            txtAluno.setText("");
+            txtTurma.setText("");
+            control.limparCampos();
+        });
 
         Label lblAluno = new Label("Aluno:");
         Label lblTurma = new Label("Turma:");
@@ -136,7 +140,12 @@ public class MatriculaBoundary implements Tela {
                                     "Tem certeza que deseja excluir esta matricula?", ButtonType.YES, ButtonType.NO);
                             Optional<ButtonType> result = alert.showAndWait();
                             if (result.isPresent() && result.get() == ButtonType.YES) {
-                                control.excluir(getIndex());
+                                try{
+                                    control.excluir(getIndex());
+                                    tabela.refresh();
+                                } catch (Exception ex) {
+                                    new Alert(AlertType.ERROR, ex.getMessage()).show();      
+                                }
                             }
                         });
                     }

@@ -1,5 +1,6 @@
 package br.edu.fateczl.presencaesportiva.controller;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class MatriculaControl {
         matriculas.addAll(dao.pesquisarPorAluno(nomeAluno));
     }   
 
-    public void excluir(int indice) {
+    public void excluir(int indice) throws SQLException {
         Matricula a = matriculas.get(indice);
         dao.apagar(a);
         carregar();

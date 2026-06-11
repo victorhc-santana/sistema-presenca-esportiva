@@ -27,12 +27,12 @@ public class PrincipalBoundary extends Application {
 
         MenuItem mnuAlunoItem = new MenuItem("Alunos");
         MenuItem mnuTurmaItem = new MenuItem("Turmas");
-        MenuItem mnuPresencaItem = new MenuItem("Presenças");
         MenuItem mnuMatriculaItem = new MenuItem("Matrículas");
+        MenuItem mnuPresencaItem = new MenuItem("Presenças");
 
         menuBar.getMenus().addAll( mnuArquivo, mnuCadastro, mnuAjuda);
 
-        mnuCadastro.getItems().addAll( mnuAlunoItem, mnuTurmaItem, mnuPresencaItem, mnuMatriculaItem );
+        mnuCadastro.getItems().addAll( mnuAlunoItem, mnuTurmaItem, mnuMatriculaItem, mnuPresencaItem );
 
         pane.setTop( menuBar );
 

@@ -121,7 +121,6 @@ public class AlunoControl  {
         carregar();
     }
     
-
     //getter das propriedades - usado para o binding
     public StringProperty nomeProperty() {
         return nome;
