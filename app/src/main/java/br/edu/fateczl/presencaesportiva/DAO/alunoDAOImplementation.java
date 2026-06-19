@@ -1,7 +1,6 @@
 package br.edu.fateczl.presencaesportiva.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,29 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.fateczl.presencaesportiva.model.Aluno;
+import br.edu.fateczl.presencaesportiva.util.ConexaoDB;
+import br.edu.fateczl.presencaesportiva.util.Mapper;
 
 public class AlunoDAOImplementation implements AlunoDAO{
 
-    private static final String DB_URI = 
-        "jdbc:mariadb://localhost:3306/presenca_esportiva?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true";
-    private static final String DB_USER = "root";
-    private static final String DB_PASS = "123456";
+    private final Connection con;
 
-    private Connection con;
-
-    public AlunoDAOImplementation() {
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            System.out.println("Driver Carregado...");
-            con = DriverManager.getConnection(DB_URI, DB_USER, DB_PASS);
-            System.out.println("Conectado no banco de dados...");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Erro ao carregar o Driver");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Erro ao conectar no banco de dados");
-            e.printStackTrace();
-        }
+    public AlunoDAOImplementation() throws SQLException {
+        this.con = ConexaoDB.getConexao();
     }
 
     @Override
@@ -103,21 +88,12 @@ public class AlunoDAOImplementation implements AlunoDAO{
     public List<Aluno> pesquisarPorNome(String nome) {
         List<Aluno> lista = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM aluno WHERE nome LIKE ?";
+            String sql = "SELECT id AS aluno_id FROM aluno WHERE nome LIKE ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, "%" + nome + "%");
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Aluno a = new Aluno();
-                a.setId(rs.getInt("id"));
-                a.setNome(rs.getString("nome"));
-                a.setCpf(rs.getString("cpf"));
-                a.setEmail(rs.getString("email"));
-                a.setTelefone(rs.getString("telefone"));
-                a.setDataNascimento(rs.getDate("nascimento").toLocalDate());
-                a.setEndereco(rs.getString("endereco"));
-                a.setModalidade(rs.getString("modalidade"));
-                lista.add(a);
+            if (rs.next()) {
+                lista.add(Mapper.mapearAluno(rs));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao pesquisar aluno");

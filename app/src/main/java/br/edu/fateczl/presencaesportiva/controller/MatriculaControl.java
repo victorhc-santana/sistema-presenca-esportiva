@@ -5,8 +5,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import br.edu.fateczl.presencaesportiva.DAO.AlunoDAOImplementation;
+import br.edu.fateczl.presencaesportiva.DAO.MatriculaDAO;
 import br.edu.fateczl.presencaesportiva.DAO.MatriculaDAOImplementation;
-import br.edu.fateczl.presencaesportiva.DAO.turmaDAOImplementation;
+import br.edu.fateczl.presencaesportiva.DAO.TurmaDAOImplementation;
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 import br.edu.fateczl.presencaesportiva.model.Matricula;
 import br.edu.fateczl.presencaesportiva.model.Turma;
@@ -22,18 +23,22 @@ import javafx.collections.ObservableList;
 public class MatriculaControl {
 
     private ObservableList<Matricula> matriculas = FXCollections.observableArrayList();
-    private MatriculaDAOImplementation dao = new MatriculaDAOImplementation();
+    private MatriculaDAO dao;
 
+    public MatriculaControl() {
+        try {
+            dao = new MatriculaDAOImplementation();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        carregar();
+    }
     private LongProperty id = new SimpleLongProperty(0);
     private ObjectProperty<Aluno> aluno = new SimpleObjectProperty<>(null);
     private ObjectProperty<Turma> turma = new SimpleObjectProperty<>(null);
     private ObjectProperty<LocalDate> dataMatricula = new SimpleObjectProperty<>(LocalDate.now());
     private StringProperty nomeAluno = new SimpleStringProperty("");
-    private StringProperty nomeTurma = new SimpleStringProperty("");
-
-    public MatriculaControl() {
-        carregar();
-    }
+    private StringProperty nomeTurma = new SimpleStringProperty(""); 
 
     public ObservableList<Matricula> getLista() {
         return matriculas;
@@ -107,7 +112,7 @@ public class MatriculaControl {
         }
 
         // busca turma pelo nome
-        turmaDAOImplementation turmaDAO = new turmaDAOImplementation();
+        TurmaDAOImplementation turmaDAO = new TurmaDAOImplementation();
         List<Turma> lista_t = turmaDAO.pesquisarPorNome(nomeTurma);
         Turma t = null;
         if (!lista_t.isEmpty()){

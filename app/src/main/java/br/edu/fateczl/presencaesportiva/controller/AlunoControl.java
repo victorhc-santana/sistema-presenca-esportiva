@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 import br.edu.fateczl.presencaesportiva.DAO.AlunoDAO;
 import br.edu.fateczl.presencaesportiva.DAO.AlunoDAOImplementation;
+import java.sql.SQLException;
 import br.edu.fateczl.presencaesportiva.model.Aluno;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,13 +22,22 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class AlunoControl  {
+public class AlunoControl {
     
     /*Lista Observavel, table view - material disponivel nos slides "Observer: padrão de projetos"
     tem como objetivo criar uma lista observavel que notifica automaticamente o table view
     quando a lista é modificada, permitindo que a interface gráfica seja atualizada em tempo real.*/
     private ObservableList<Aluno> lista = FXCollections.observableArrayList();
-    private AlunoDAO dao = new AlunoDAOImplementation();
+    private AlunoDAO dao;
+
+    public AlunoControl() {
+        try {
+            dao = new AlunoDAOImplementation();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        carregar();
+    }
 
 
     /*Propriedades de JavaFX - vinculadas a tela via binding, material disponivel nos slides "13-table view"*/

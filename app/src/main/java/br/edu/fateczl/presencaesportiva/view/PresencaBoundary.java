@@ -1,5 +1,6 @@
 package br.edu.fateczl.presencaesportiva.view;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -61,7 +62,11 @@ public class PresencaBoundary implements Tela {
             new Alert(Alert.AlertType.WARNING, "Preencha a turma e a data.").show();
             return;
         }
-        control.carregarPorTurmaEDia(nomeTurma, dia);
+        try {
+            control.carregarPorTurmaEDia(nomeTurma, dia);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
         tabela.refresh();
         });
 

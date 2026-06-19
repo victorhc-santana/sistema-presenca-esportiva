@@ -1,5 +1,6 @@
 package br.edu.fateczl.presencaesportiva.controller;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,7 +22,16 @@ import javafx.collections.ObservableList;
 
 public class PresencaControl {
     private ObservableList<Presenca> lista = FXCollections.observableArrayList();
-    private PresencaDAO dao = new PresencaDAOImplementation();
+    private PresencaDAO dao;
+
+    public PresencaControl(){
+        try {
+            dao = new PresencaDAOImplementation();
+        } catch (Exception e) {
+           throw new RuntimeException(e);
+        }
+        carregar();
+    }
 
     private LongProperty id = new SimpleLongProperty(0);
     private ObjectProperty<Matricula> matricula = new SimpleObjectProperty<>(null);
@@ -85,7 +95,7 @@ public class PresencaControl {
         carregar();
     }
 
-    public void carregarPorTurmaEDia(String nomeTurma, LocalDate dia) {
+    public void carregarPorTurmaEDia(String nomeTurma, LocalDate dia) throws SQLException {
     lista.clear();
     // busca matrículas da turma no MatriculaDAO
     MatriculaDAO matriculaDAO = new MatriculaDAOImplementation();

@@ -1,37 +1,21 @@
 package br.edu.fateczl.presencaesportiva.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.fateczl.presencaesportiva.model.Aluno;
-import br.edu.fateczl.presencaesportiva.model.Matricula;
 import br.edu.fateczl.presencaesportiva.model.Presenca;
-import br.edu.fateczl.presencaesportiva.model.Turma;
+import br.edu.fateczl.presencaesportiva.util.ConexaoDB;
+import br.edu.fateczl.presencaesportiva.util.Mapper;
 
 public class PresencaDAOImplementation implements PresencaDAO {
-    private static final String DB_URI = "jdbc:mariadb://localhost:3306/presenca_esportiva?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true";
-    private static final String DB_USER = "root";
-    private static final String DB_PASS = "123456";
 
-    private Connection con;
+    private final Connection con;
 
-    public PresencaDAOImplementation() {
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            System.out.println("Driver Carregado...");
-            con = DriverManager.getConnection(DB_URI, DB_USER, DB_PASS);
-            System.out.println("Conectado no banco de dados...");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Erro ao carregar o Driver");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Erro ao conectar no banco de dados");
-            e.printStackTrace();
-        }
+    public PresencaDAOImplementation() throws SQLException {
+        this.con = ConexaoDB.getConexao();
     }
     @Override
     public void cadastrar(Presenca p) {
@@ -98,41 +82,9 @@ public class PresencaDAOImplementation implements PresencaDAO {
             stmt.setLong(1, matriculaId);
             stmt.setObject(2, dia);
             var rs = stmt.executeQuery();
-            if (rs.next()) {
-                Aluno aluno = new Aluno();
-                aluno.setId(rs.getLong("aluno_id"));
-                aluno.setNome(rs.getString("nome"));
-                aluno.setCpf(rs.getString("cpf"));
-                aluno.setEmail(rs.getString("email"));
-                aluno.setTelefone(rs.getString("telefone"));
-                aluno.setDataNascimento(rs.getObject("nascimento", LocalDate.class));
-                aluno.setEndereco(rs.getString("endereco"));
-                aluno.setModalidade(rs.getString("modalidade"));
-
-                Turma turma = new Turma();
-                turma.setId(rs.getInt("turma_id"));
-                turma.setNome(rs.getString("turma_nome"));
-                turma.setModalidade(rs.getString("turma_modalidade"));
-                turma.setProfessor(rs.getString("professor"));
-                turma.setHorario(rs.getString("horario"));
-                turma.setDiaSemana(rs.getString("dia_semana"));
-                turma.setVagasTotal(rs.getInt("vagas_total"));
-                turma.setNivel(rs.getString("nivel"));
-
-                Matricula matricula = new Matricula();
-                matricula.setId(rs.getLong("matricula_id"));
-                matricula.setAluno(aluno);
-                matricula.setTurma(turma);
-                matricula.setDataMatricula(rs.getObject("data_matricula", LocalDate.class));
-
-                Presenca presenca = new Presenca();
-                presenca.setId(rs.getLong("id"));
-                presenca.setMatricula(matricula);
-                presenca.setDia(rs.getObject("dia", LocalDate.class));
-                presenca.setStatus(rs.getBoolean("status"));
-
-                presencas.add(presenca);
-                return presenca;
+            if (rs.next()) {  
+                presencas.add(Mapper.mapearPresenca(rs));
+                return Mapper.mapearPresenca(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,40 +112,8 @@ public class PresencaDAOImplementation implements PresencaDAO {
         stmt.setObject(2, dia);
         var rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Aluno aluno = new Aluno();
-            aluno.setId(rs.getLong("aluno_id"));
-            aluno.setNome(rs.getString("nome"));
-            aluno.setCpf(rs.getString("cpf"));
-            aluno.setEmail(rs.getString("email"));
-            aluno.setTelefone(rs.getString("telefone"));
-            aluno.setDataNascimento(rs.getObject("nascimento", LocalDate.class));
-            aluno.setEndereco(rs.getString("endereco"));
-            aluno.setModalidade(rs.getString("modalidade"));
-
-            Turma turma = new Turma();
-            turma.setId(rs.getInt("turma_id"));
-            turma.setNome(rs.getString("turma_nome"));
-            turma.setModalidade(rs.getString("turma_modalidade"));
-            turma.setProfessor(rs.getString("professor"));
-            turma.setHorario(rs.getString("horario"));
-            turma.setDiaSemana(rs.getString("dia_semana"));
-            turma.setVagasTotal(rs.getInt("vagas_total"));
-            turma.setNivel(rs.getString("nivel"));
-
-            Matricula matricula = new Matricula();
-            matricula.setId(rs.getLong("matricula_id"));
-            matricula.setAluno(aluno);
-            matricula.setTurma(turma);
-            matricula.setDataMatricula(rs.getObject("data_matricula", LocalDate.class));
-
-            Presenca presenca = new Presenca();
-            presenca.setId(rs.getLong("id"));
-            presenca.setMatricula(matricula);
-            presenca.setDia(rs.getObject("dia", LocalDate.class));
-            presenca.setStatus(rs.getBoolean("status"));
-
-            presencas.add(presenca);
+        while (rs.next()) {          
+            presencas.add(Mapper.mapearPresenca(rs));
         }
     } catch (SQLException e) {
         System.out.println("Erro ao pesquisar presença por dia");

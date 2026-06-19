@@ -1,7 +1,6 @@
 package br.edu.fateczl.presencaesportiva.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,29 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.fateczl.presencaesportiva.model.Turma;
+import br.edu.fateczl.presencaesportiva.util.ConexaoDB;
+import br.edu.fateczl.presencaesportiva.util.Mapper;
 
-public class turmaDAOImplementation implements turmaDAO {
+public class TurmaDAOImplementation implements TurmaDAO {
 
-    private static final String DB_URI = "jdbc:mariadb://localhost:3306/presenca_esportiva?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true";
-    private static final String DB_USER = "root";
-    private static final String DB_PASS = "123456";
+    private final Connection con;
 
-    private Connection con;
-
-    public turmaDAOImplementation() {
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            System.out.println("Driver Carregado...");
-            con = DriverManager.getConnection(DB_URI, DB_USER, DB_PASS);
-            System.out.println("Conectado no banco de dados...");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Erro ao carregar o Driver");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Erro ao conectar no banco de dados");
-            e.printStackTrace();
-        }
-
+    public TurmaDAOImplementation() throws SQLException {
+        this.con = ConexaoDB.getConexao();
     }
 
     @Override
@@ -103,21 +88,12 @@ public class turmaDAOImplementation implements turmaDAO {
     public List<Turma> pesquisarPorNome(String nome) {
         List<Turma> lista = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM turma WHERE nome LIKE ?";
+            String sql = "SELECT id AS turma_id FROM turma WHERE nome LIKE ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, "%" + nome + "%");
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Turma a = new Turma();
-                a.setId(rs.getInt("id"));
-                a.setNome(rs.getString("nome"));
-                a.setModalidade(rs.getString("modalidade"));
-                a.setProfessor(rs.getString("professor"));
-                a.setHorario(rs.getString("horario"));
-                a.setDiaSemana(rs.getString("dia_semana"));
-                a.setVagasTotal(rs.getInt("vagas_total"));
-                a.setNivel(rs.getString("nivel"));
-                lista.add(a);
+                lista.add(Mapper.mapearTurma(rs));
             }
             System.out.println("turmas selecionadas com sucesso");
         } catch (SQLException e) {

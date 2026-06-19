@@ -2,8 +2,8 @@ package br.edu.fateczl.presencaesportiva.controller;
 
 import br.edu.fateczl.presencaesportiva.model.Turma;
 
-import br.edu.fateczl.presencaesportiva.DAO.turmaDAO;
-import br.edu.fateczl.presencaesportiva.DAO.turmaDAOImplementation;
+import br.edu.fateczl.presencaesportiva.DAO.TurmaDAO;
+import br.edu.fateczl.presencaesportiva.DAO.TurmaDAOImplementation;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -16,7 +16,15 @@ import javafx.collections.ObservableList;
 public class TurmaControl {
 
     private ObservableList<Turma> lista = FXCollections.observableArrayList();
-    private turmaDAO dao = new turmaDAOImplementation();
+    private TurmaDAO dao;
+    public TurmaControl() {
+        try {
+            dao = new TurmaDAOImplementation();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        carregar();
+    }
 
     // Preciso ver o que está errado nesse passo tipo Integer
     private LongProperty id = new SimpleLongProperty(0);
